@@ -1,0 +1,12 @@
+#root h1,
+#root h2,
+#root h3,
+#root h4,
+#root h5 {
+  margin: 0 !important;
+}
+
+#root a {
+  text-decoration: none;
+  color: inherit;
+}

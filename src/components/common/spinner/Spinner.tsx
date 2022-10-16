@@ -1,0 +1,39 @@
+import styled, { keyframes } from 'styled-components';
+
+const spinnerAnim = keyframes`
+    
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+`;
+
+const SpinnerContainer = styled.div`
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  span {
+    display: block;
+    width: 30px;
+    height: 30px;
+    border: 3px solid transparent;
+    border-radius: 50%;
+    border-right-color: rgba(0, 0, 0, 0.7);
+    animation: ${spinnerAnim} 0.8s linear infinite;
+  }
+`;
+
+const Spinner = () => {
+  return (
+    <SpinnerContainer>
+      <span></span>
+    </SpinnerContainer>
+  );
+};
+
+export default Spinner;

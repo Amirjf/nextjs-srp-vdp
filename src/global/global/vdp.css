@@ -1,0 +1,38 @@
+.vdp-btns-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+}
+.vdp-btns-container > .vbtn {
+  transition: all 0.5s;
+  text-align: left;
+  padding-left: 10px;
+  background-color: rgb(242, 242, 242);
+  font-size: 18px;
+  font-weight: 500;
+  display: none;
+}
+.vdp-btns-container > .vbtn.is_mob.is_desk {
+  display: block;
+}
+@media (min-width: 1024px) {
+  .vdp-btns-container > .vbtn.is_desk {
+    display: block;
+  }
+}
+@media (max-width: 1024px) {
+  .vdp-btns-container > .vbtn.is_mob {
+    display: block;
+  }
+}
+
+.vdp-btns-container > .vbtn:hover {
+  background-color: var(--mainColor);
+  color: #fff;
+}
+
+.price-wrap {
+  display: flex;
+  flex-direction: column;
+  row-gap: 14px;
+}

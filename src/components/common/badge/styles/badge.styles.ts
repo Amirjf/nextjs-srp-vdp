@@ -1,0 +1,62 @@
+import styled from 'styled-components';
+import { mediaQueries } from '../../../../global/utils/mediaQueries';
+
+export const BadgeContainer = styled.div({
+  position: 'relative',
+});
+export const BadgeContent = styled.sup(({ theme }) => ({
+  position: 'absolute',
+  transform: 'translate(43%, 30%)',
+  cursor: 'pointer',
+  fontSize: 10,
+  whiteSpace: 'nowrap',
+  textAlign: 'center',
+  borderRadius: 15,
+  zIndex: 'auto',
+  lineHeight: '22px',
+  top: 0,
+  left: 0,
+  width: 28,
+  height: 28,
+  color: '#fff',
+
+  [mediaQueries('md')]: {
+    top: 0,
+    left: 0,
+    fontSize: 15,
+    width: 28,
+    height: 28,
+    border: 'none',
+    background: 'transparent',
+    color: '#fff',
+    lineHeight: '22px',
+    transform: 'translate(60%, 30%)',
+  },
+  [mediaQueries('lg')]: {
+    top: 0,
+    left: 0,
+    fontSize: 14,
+    width: 'max-content',
+    height: 'max-content',
+    background: theme.palette.common.white,
+    transformOrigin: '100% 0%',
+    border: `solid 2px ${theme.palette.common.black}`,
+    color: '#000',
+    lineHeight: '20px',
+    transform: 'translate(-10%, -20%)',
+    padding: '1px 7px',
+  },
+  [mediaQueries('xl')]: {
+    top: 0,
+    left: 0,
+    fontSize: 14,
+    width: 'max-content',
+    height: 'max-content',
+    background: theme.palette.common.white,
+    transformOrigin: '100% 0%',
+    border: `solid 2px ${theme.palette.common.black}`,
+    color: '#000',
+    transform: 'translate(-10%, -20%)',
+    padding: '1px 7px',
+  },
+}));

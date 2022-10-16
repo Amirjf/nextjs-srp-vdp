@@ -1,0 +1,61 @@
+.arrow {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  fill: #fff;
+  cursor: pointer;
+  z-index: 9999;
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.32));
+}
+
+.arrow--left {
+  left: 5px;
+}
+
+.arrow--right {
+  left: auto;
+  right: 5px;
+}
+
+.arrow--disabled {
+  fill: rgba(255, 255, 255, 0.5);
+}
+
+.keen-slider {
+  margin: 0;
+  min-width: 0;
+  z-index: 2;
+  transition: height 0.4s;
+}
+
+.keen-slider__slide.slide picture {
+  cursor: zoom-in;
+}
+.keen-slider__slide.slide picture::after,
+.keen-slider__slide.slide img::after {
+  content: '';
+  background: linear-gradient(
+    0deg,
+    rgba(28, 31, 60, 0.7) 0.21%,
+    rgb(8 19 119 / 56%) 0%,
+    rgba(0, 0, 0, 0) 16%,
+    rgba(0, 0, 0, 0.236788) 47.44%
+  );
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0px;
+}
+
+#air-datepicker-global-container {
+  z-index: 9999;
+}
+
+.price-line {
+  display: flex;
+  justify-content: space-between;
+}
