@@ -11,31 +11,31 @@ import {
 } from '../context/utils/filterUtils';
 import { handleUrl } from '../context/utils/handleFiltersQuery';
 
-export function laggy(useSWRNext: any) {
-  return (key: any, fetcher: any, config: any) => {
-    const laggyDataRef = useRef();
-    const swr = useSWRNext(key, fetcher, config);
+// export function laggy(useSWRNext: any) {
+//   return (key: any, fetcher: any, config: any) => {
+//     const laggyDataRef = useRef();
+//     const swr = useSWRNext(key, fetcher, config);
 
-    useEffect(() => {
-      if (swr.data !== undefined) {
-        laggyDataRef.current = swr.data;
-      }
-    }, [swr.data]);
-    const resetLaggy = useCallback(() => {
-      laggyDataRef.current = undefined;
-    }, []);
-    const dataOrLaggyData =
-      swr.data === undefined ? laggyDataRef.current : swr.data;
-    const isLagging =
-      swr.data === undefined && laggyDataRef.current !== undefined;
+//     useEffect(() => {
+//       if (swr.data !== undefined) {
+//         laggyDataRef.current = swr.data;
+//       }
+//     }, [swr.data]);
+//     const resetLaggy = useCallback(() => {
+//       laggyDataRef.current = undefined;
+//     }, []);
+//     const dataOrLaggyData =
+//       swr.data === undefined ? laggyDataRef.current : swr.data;
+//     const isLagging =
+//       swr.data === undefined && laggyDataRef.current !== undefined;
 
-    return Object.assign({}, swr, {
-      data: dataOrLaggyData,
-      isLagging,
-      resetLaggy,
-    });
-  };
-}
+//     return Object.assign({}, swr, {
+//       data: dataOrLaggyData,
+//       isLagging,
+//       resetLaggy,
+//     });
+//   };
+// }
 
 const useInfiniteVehicles = () => {
   const {
@@ -69,7 +69,7 @@ const useInfiniteVehicles = () => {
         : `${handleSearch(searchQuery)}/pagenum=${pageIndex + 1}`;
 
     if (!loadingFilters) {
-      return `/fl.json?url=inventory/${getQueries}`;
+      return `https://spokanemercedes.com/api/json/vehicles/fl.json?url=inventory/${getQueries}`;
     }
   };
 
@@ -77,13 +77,7 @@ const useInfiniteVehicles = () => {
   //   if (vehiclesData) mutate('vehiclesData', vehiclesData, false);
   // }
 
-  const { data, error, size, isLagging, setSize }: any = useSWRInfinite(
-    getUrl,
-    fetcher,
-    {
-      use: [laggy],
-    }
-  );
+  const { data, error, size, setSize }: any = useSWRInfinite(getUrl, fetcher);
 
   const isLoadingInitialData = !data && !error;
 

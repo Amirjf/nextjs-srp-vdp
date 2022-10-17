@@ -12,13 +12,10 @@ import '../src/global/global/card-styles.css';
 import '../src/global/global/slider.css';
 import '../src/global/global/vdp.css';
 import 'keen-slider/keen-slider.min.css';
+import useInfiniteVehicles from '../src/hooks/useInfiniteVehicles';
+import axios from 'axios';
 
-function MyApp({ Component, pageProps }) {
-  const SWR_OPTIONS = {
-    revalidateOnFocus: false,
-    fetcher: (url: string) => CarClient.get(url).then((res) => res.data),
-  };
-
+function MyApp({ Component, pageProps }: any) {
   const FadingBackground = styled(BaseModalBackground)`
     opacity: ${(props: any) => props.opacity};
     transition: all 0.3s ease-in-out;
@@ -26,18 +23,22 @@ function MyApp({ Component, pageProps }) {
     background-color: ${(props: any) => props.backgroundColor};
   `;
 
+  // axios.defaults.baseURL = 'https://mbspokane.datgate.com/api/json/vehicles/';
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <SWRConfig value={SWR_OPTIONS}>
+      <SWRConfig
+        value={{ fetcher: (url) => axios(url).then((res) => res.data) }}
+      >
         <ModalProvider backgroundComponent={FadingBackground}>
-          <GoogleBotProvider>
-            <CarsProvider>
-              <ShowFiltersProvider>
-                <Component {...pageProps} />
-              </ShowFiltersProvider>
-            </CarsProvider>
-          </GoogleBotProvider>
+          {/* <GoogleBotProvider> */}
+          <CarsProvider>
+            <ShowFiltersProvider>
+              <Component {...pageProps} />
+            </ShowFiltersProvider>
+          </CarsProvider>
+          {/* </GoogleBotProvider> */}
         </ModalProvider>
       </SWRConfig>
     </ThemeProvider>

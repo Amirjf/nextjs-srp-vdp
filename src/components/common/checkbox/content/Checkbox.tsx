@@ -1,6 +1,5 @@
 import React from 'react';
 import { handleShowingTextWithTradeMark } from '../../../../global/utils/utils';
-import useFilters from '../../../../hooks/useFilters';
 
 import {
   CheckboxContainer,
@@ -18,12 +17,10 @@ const Checkbox: React.FC<CheckboxProps> = ({
   count,
   ...props
 }: CheckboxProps) => {
-  const { isLagging } = useFilters();
-
   const transltedLabel = handleShowingTextWithTradeMark(label);
 
   return (
-    <CheckboxContainer loading={isLagging}>
+    <CheckboxContainer loading={false}>
       <CheckboxLabel>
         <CustomCheckbox
           onChange={onChange}

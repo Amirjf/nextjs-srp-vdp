@@ -7,41 +7,41 @@ import {
   getSrpTheme,
   handleShowingFirstBanner,
 } from '../utils/utils';
-import useBanners from '../../../../hooks/useBanners';
-import Banner from '../../../banner/content/AdBanner';
+
 import { useIntersectionObserver, useReadLocalStorage } from 'usehooks-ts';
 import useQuery from '../../../../hooks/useQuery';
 import SrpDisclaimer from '../../../srp-disclaimer/content/SrpDisclaimer';
 
-const MainContent: React.FC = () => {
+const MainContent = ({ vehiclesData }: any) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const urlParams = useQuery();
   const entry = useIntersectionObserver(ref, {});
   const isVisible = !!entry?.isIntersecting;
 
-  const {
-    data: vehicles,
-    isLoadingMore,
-    isReachingEnd,
-    setSize,
-    size,
-  } = useInfiniteVehicles();
+  // const {
+  //   data: vehicles,
+  //   isLoadingMore,
+  //   isReachingEnd,
+  //   setSize,
+  //   size,
+  // } = useInfiniteVehicles();
 
-  React.useEffect(() => {
-    if (isVisible && !urlParams.get('special')) {
-      setSize(size + 1);
-    }
-  }, [isVisible]);
+  // React.useEffect(() => {
+  //   if (isVisible && !urlParams.get('special')) {
+  //     setSize(size + 1);
+  //   }
+  // }, [isVisible]);
 
-  const { cachedSrpTheme, srpTheme }: any = useContext(GoogleContext);
+  // const { cachedSrpTheme, srpTheme }: any = useContext(GoogleContext);
 
-  const { bannersToShow, handleMediaQuery } = useBanners();
+  // const srpCardsTheme = cachedSrpTheme || srpTheme;
 
-  const srpCardsTheme = cachedSrpTheme || srpTheme;
+  console.log(vehiclesData);
 
   return (
     <>
-      {vehicles?.map((cars: CarType[], page: number) => {
+      SRP
+      {/* {vehicles?.map((cars: CarType[], page: number) => {
         return cars.map((car: CarType, index: number) => {
           const getNumberOfColsByScreen: any = handleMediaQuery();
           const srpThemeTranslator = getSrpTheme[srpCardsTheme];
@@ -58,8 +58,7 @@ const MainContent: React.FC = () => {
             </Fragment>
           );
         });
-      })}
-
+      })} */}
       <div
         ref={ref}
         style={{
@@ -70,12 +69,10 @@ const MainContent: React.FC = () => {
           zIndex: 999999999,
         }}
       ></div>
-
       {/* {vehicles && vehicles[0]?.length < 6
         ? handleShowingFirstBanner(bannersToShow)
         : ''} */}
-
-      {isLoadingMore && !isReachingEnd ? (
+      {/* {isLoadingMore && !isReachingEnd ? (
         <>
           {Array.from(Array(8).keys()).map((s, index) => (
             <Fragment key={index}>{CARD_LOADERS[srpCardsTheme]}</Fragment>
@@ -83,7 +80,7 @@ const MainContent: React.FC = () => {
         </>
       ) : (
         ''
-      )}
+      )} */}
     </>
   );
 };

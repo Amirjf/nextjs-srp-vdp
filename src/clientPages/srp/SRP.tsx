@@ -1,3 +1,5 @@
+import useSWR from 'swr';
+import CarClient from '../../client/client';
 import { TopSearch } from '../../components';
 import { MainContent, NotFoundVehicle, Sidebar } from '../../components/common';
 import { MainContentContainer } from '../../components/common/main-content/styles/mainContent.styles';
@@ -6,11 +8,13 @@ import SRPFilterHandler from '../../components/srp-filter-handler/SRPFilterHandl
 import { MainContainer } from '../../global/global/Global.styles';
 import useInfiniteVehicles from '../../hooks/useInfiniteVehicles';
 
+// const fetcher = (url: string) => CarClient.get(url).then((res) => res.data);
+
 const SRP = () => {
   return (
     <>
       <div className="srp-wrapper">
-        <SRPFilterHandler />
+        {/* <SRPFilterHandler /> */}
         {/* <TopSearch /> */}
         <MainContainer>
           <Sidebar />

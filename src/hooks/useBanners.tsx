@@ -1,15 +1,18 @@
 import { useContext } from 'react';
 import { CarsContext } from '../context/CarsContext';
-import { useMediaQuery, useReadLocalStorage } from 'usehooks-ts';
+import { useMediaQuery } from 'usehooks-ts';
 import useSWR from 'swr';
-import { GoogleContext } from '../context/GoogleOptContext';
+import { useRouter } from 'next/router';
+import CarClient from '../client/client';
+const fetcher = (url: string) => CarClient.get(url).then((res) => res.data);
 
 const useBanners = () => {
-  const { isGoogleBot }: any = useContext(GoogleContext);
-  const cachedBanners = useReadLocalStorage('srpBanners');
-
   const { data, error } = useSWR(
-    !cachedBanners && isGoogleBot === false ? '/opt.json?type=srpbanners' : null
+    'https://spokanemercedes.com/api/json/vehicles/opt.json?type=srpbanners',
+    fetcher,
+    {
+      refreshInterval: 1000,
+    }
   );
 
   const mediumMedia = useMediaQuery('(min-width:768px) and (max-width:1700px)');
@@ -17,15 +20,15 @@ const useBanners = () => {
   const xlMedia = useMediaQuery('(min-width:2300px)');
   const smMedia = useMediaQuery('(min-width:525px) and (max-width:768px)');
   const xsMedia = useMediaQuery('(max-width:525px)');
-
+  const { asPath } = useRouter();
   const {
     filters: { make, model },
   }: any = useContext(CarsContext);
 
-  const params = new URLSearchParams(window.location.search);
+  const params = new URLSearchParams(asPath);
   const vehicleConds: any = params.getAll('cond');
 
-  const getBannersData = cachedBanners || data;
+  const getBannersData = data;
 
   const bannersToShow = getBannersData?.banners_data.filter((item: any) => {
     const bannersForModels = item.model;

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 import { CarsContext } from '../../context/CarsContext';
 import { CarBodySelect } from '../car-body-select';
@@ -6,7 +7,7 @@ import { CAR_ICONS } from './utils/costants';
 
 const CarBodyFilter = ({ items }: any) => {
   const [seeMore, setSeeMore] = React.useState(false);
-
+  const { asPath } = useRouter();
   const { addFilters, clearItemFromFilters }: any =
     React.useContext(CarsContext);
 
@@ -19,7 +20,7 @@ const CarBodyFilter = ({ items }: any) => {
   };
 
   const handleChecked = (name: string) => {
-    const params = new URLSearchParams(window.location.search);
+    const params = new URLSearchParams(asPath);
     const getBodies = params.getAll('body');
     return getBodies.includes(name);
   };

@@ -12,7 +12,7 @@ const FiltersHeader: React.FC = () => {
   return (
     <FilterHeaderContainer>
       <CloseIcon position="topLeft" onClick={setShowFilters} />
-      <FilterTagsContent />
+      {/* <FilterTagsContent /> */}
     </FilterHeaderContainer>
   );
 };

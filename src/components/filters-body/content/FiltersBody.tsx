@@ -5,14 +5,11 @@ import CarTypeFilter from '../../car-type-filter/content/CarTypeFilter';
 import { filterItemTitleTranslator, FILTERS } from '../utils/utils';
 import CarMileageFilter from '../../car-mileage-filter/content/CarMileageFilter';
 import { useReadLocalStorage } from 'usehooks-ts';
-import useFilters from '../../../hooks/useFilters';
+
 import IsSpecialFilter from '../../car-is-special-filter/IsSpecialFilter';
 
 const FiltersBody = () => {
-  const currentFilters: any = useReadLocalStorage('currentCounters');
-  const { filterItems } = useFilters();
-
-  const getFilters = filterItems ?? currentFilters;
+  // const getFilters = filterItems ?? currentFilters;
 
   return (
     <>
@@ -26,7 +23,7 @@ const FiltersBody = () => {
         <Collapsible title="Specials">
           <IsSpecialFilter />
         </Collapsible>
-        {getFilters?.map(
+        {/* {getFilters?.map(
           (
             filterItem: { [s: string]: unknown } | ArrayLike<unknown>,
             i: number
@@ -48,7 +45,7 @@ const FiltersBody = () => {
               );
             }
           }
-        )}
+        )} */}
 
         <Collapsible title="Mileage">
           <CarMileageFilter />
