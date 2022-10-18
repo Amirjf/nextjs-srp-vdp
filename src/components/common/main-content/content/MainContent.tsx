@@ -57,24 +57,27 @@ const MainContent = ({ vehiclesData }: any) => {
 
   // const srpCardsTheme = cachedSrpTheme || srpTheme;
 
-  // const vehiclesToShow = vehicles ?? [vehiclesData];
+  const vehiclesToShow = [vehiclesData] ?? vehicles;
 
   return (
     <>
-      {vehiclesData?.map((cars: CarType, page: number) => {
-        const srpThemeTranslator = getSrpTheme["theme2"];
-        return (
-          <Fragment key={cars.id}>
-            {/* {index % getNumberOfColsByScreen === 0 ? (
-                <Banner
-                  media={handleMediaQuery}
-                  getCols={getNumberOfColsByScreen}
-                  position={index}
-                />
-              ) : undefined} */}
-            {srpThemeTranslator(cars)}
-          </Fragment>
-        );
+      {data?.map((cars: CarType[], page: number) => {
+        return cars.map((car: CarType, index: number) => {
+          // const getNumberOfColsByScreen: any = handleMediaQuery();
+          const srpThemeTranslator = getSrpTheme["theme2"];
+          return (
+            <Fragment key={car.id}>
+              {/* {index % getNumberOfColsByScreen === 0 ? (
+                  <Banner
+                    media={handleMediaQuery}
+                    getCols={getNumberOfColsByScreen}
+                    position={index}
+                  />
+                ) : undefined} */}
+              {srpThemeTranslator(car)}
+            </Fragment>
+          );
+        });
       })}
       <div
         ref={ref}
