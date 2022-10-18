@@ -1,20 +1,20 @@
-import { useContext, useRef, useState } from 'react';
-import { FaRegCopy } from 'react-icons/fa';
-import { MdLocationOn } from 'react-icons/md';
-import { useParams } from 'react-router-dom';
-import { useTheme } from 'styled-components';
-import { VdpContext } from '../../../../context/vdp/VdpContext';
-import useVehicle from '../../../../hooks/useVehicle';
-import { Button } from '../../../common';
-import { kFormatter } from '../../../common/badge/content/Badge';
-import { Space } from '../../../common/space';
-import Tooltip from '../../../common/tooltip/content/Tooltip';
+import { Fragment, useContext, useRef, useState } from "react";
+import { FaRegCopy } from "react-icons/fa";
+import { MdLocationOn } from "react-icons/md";
+import { useParams } from "react-router-dom";
+import { useTheme } from "styled-components";
+import { VdpContext } from "../../../../context/vdp/VdpContext";
+import useVehicle from "../../../../hooks/useVehicle";
+import { Button } from "../../../common";
+import { kFormatter } from "../../../common/badge/content/Badge";
+import { Space } from "../../../common/space";
+import Tooltip from "../../../common/tooltip/content/Tooltip";
 import {
   VehicleSummaryInfo,
   CopyableText,
   CopyIcon,
-} from '../styles/vehicleInfo.styles';
-import VehicleActions from './VehicleActions';
+} from "../styles/vehicleInfo.styles";
+import VehicleActions from "./VehicleActions";
 
 const VehicleSummary = () => {
   const vinCopyRef: any = useRef<undefined | null | HTMLParagraphElement>();
@@ -50,7 +50,7 @@ const VehicleSummary = () => {
           <Tooltip
             showOnClick
             position="top"
-            content={isVinCopied ? 'Vin # Copied !' : 'Click to Copy'}
+            content={isVinCopied ? "Vin # Copied !" : "Click to Copy"}
           >
             <div onClick={handleCopy} style={{ fontWeight: 600 }}>
               <CopyableText ref={vinCopyRef}>
@@ -67,7 +67,7 @@ const VehicleSummary = () => {
           <Tooltip
             showOnClick
             position="left"
-            content={isStockCopied ? 'Stock # Copied !' : 'Click to Copy'}
+            content={isStockCopied ? "Stock # Copied !" : "Click to Copy"}
           >
             <div onClick={handleCopyStock} style={{ fontWeight: 600 }}>
               <CopyableText ref={stockCopyRef}>
@@ -81,22 +81,22 @@ const VehicleSummary = () => {
         </Space>
         <Space style={{ paddingBottom: 10 }} align="space-between">
           <div>Stock Type</div>
-          <div style={{ textTransform: 'uppercase', fontWeight: 600 }}>
-            {cond === 'used' ? 'Pre-Owned' : cond}
+          <div style={{ textTransform: "uppercase", fontWeight: 600 }}>
+            {cond === "used" ? "Pre-Owned" : cond}
           </div>
         </Space>
         {certified_logos?.length > 0 && (
           <Space style={{ paddingTop: 30 }} alignItems="center" align="start">
-            {certified_logos.map((certifiedLogo: any) => (
-              <>
+            {certified_logos.map((certifiedLogo: any, idx: number) => (
+              <Fragment key={`${idx}`}>
                 {certifiedLogo.url ? (
-                  <a href={certifiedLogo.url} target="_blank">
+                  <a href={certifiedLogo.url} target="_blank" rel="noreferrer">
                     <img
                       src={certifiedLogo.src}
                       alt="carfax-logo"
                       width={85}
                       height={30}
-                      style={{ width: 110, height: 'auto' }}
+                      style={{ width: 110, height: "auto" }}
                     />
                   </a>
                 ) : (
@@ -105,10 +105,10 @@ const VehicleSummary = () => {
                     alt="carfax-logo"
                     width={85}
                     height={30}
-                    style={{ width: 110, height: 'auto' }}
+                    style={{ width: 110, height: "auto" }}
                   />
                 )}
-              </>
+              </Fragment>
             ))}
           </Space>
         )}
@@ -116,31 +116,31 @@ const VehicleSummary = () => {
 
       <div
         style={{
-          margin: '0 auto',
-          width: '90%',
-          paddingBottom: '2rem',
-          paddingTop: '2.4rem',
-          textAlign: 'center',
+          margin: "0 auto",
+          width: "90%",
+          paddingBottom: "2rem",
+          paddingTop: "2.4rem",
+          textAlign: "center",
         }}
       >
         <Button
-          onClick={() => setPageAction('Choose an Option')}
+          onClick={() => setPageAction("Choose an Option")}
           block
           scale="lg"
           style={{
             backgroundColor: palette.primary.main,
             fontWeight: 400,
             borderRadius: 15,
-            fontFamily: 'Arial',
+            fontFamily: "Arial",
             marginBottom: 10,
           }}
         >
-          I'm Interested
+          {`I'm Interested`}
         </Button>
-        <Button variant="text" onClick={() => setPageAction('Located at')}>
+        <Button variant="text" onClick={() => setPageAction("Located at")}>
           <Space
             align="center"
-            style={{ columnGap: 10, textTransform: 'capitalize' }}
+            style={{ columnGap: 10, textTransform: "capitalize" }}
           >
             <MdLocationOn size={17} />
             at {dealer_name}

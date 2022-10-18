@@ -1,19 +1,19 @@
-import { useState } from 'react';
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
-import { GoLocation } from 'react-icons/go';
-import { useTheme } from 'styled-components';
-import { useSWRConfig } from 'swr';
-import { useLocalStorage } from 'usehooks-ts';
-import useQuery from '../../../../../hooks/useQuery';
-import useVehicle from '../../../../../hooks/useVehicle';
-import { Button } from '../../../button';
-import CardVideo from '../../../card-video/content/CardVideo';
-import Tooltip from '../../../tooltip/content/Tooltip';
-import CardTopLabel from '../../card-design1/card-top-label/content/CardTopLabel';
-import Card2Badge from '../../card-design2/content/card2-badge/content/Card2Badge';
-import { CertifiedLogosContainer } from '../../card-design2/styles/cardDesign2.styles';
-import CardExtColors from '../../card-ext-colors/content/CardExtColors';
-import { currencyFormat } from '../../utils/utils';
+import { useState } from "react";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { GoLocation } from "react-icons/go";
+import { useTheme } from "styled-components";
+import { useSWRConfig } from "swr";
+import { useLocalStorage } from "usehooks-ts";
+import useQuery from "../../../../../hooks/useQuery";
+import useVehicle from "../../../../../hooks/useVehicle";
+import { Button } from "../../../button";
+import CardVideo from "../../../card-video/content/CardVideo";
+import Tooltip from "../../../tooltip/content/Tooltip";
+import CardTopLabel from "../../card-design1/card-top-label/content/CardTopLabel";
+import Card2Badge from "../../card-design2/content/card2-badge/content/Card2Badge";
+import { CertifiedLogosContainer } from "../../card-design2/styles/cardDesign2.styles";
+import CardExtColors from "../../card-ext-colors/content/CardExtColors";
+import { currencyFormat } from "../../utils/utils";
 import {
   Card3Container,
   Card3Header,
@@ -35,7 +35,7 @@ import {
   CardAddressContainer3,
   CardBodyContent,
   CardAdressMobile,
-} from '../styles/cardDesign3.styles';
+} from "../styles/cardDesign3.styles";
 const POSITION_FOR_BADGE = 15;
 
 const CardDesign3 = ({ car }: any) => {
@@ -70,7 +70,7 @@ const CardDesign3 = ({ car }: any) => {
 
   const theme = useTheme();
   const params = useQuery();
-  const [savedCars, setSaveCar] = useLocalStorage<any>('savedCars', []);
+  const [savedCars, setSaveCar] = useLocalStorage<any>("savedCars", []);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [vehicleId, setVehicleId] = useState(null);
 
@@ -118,19 +118,19 @@ const CardDesign3 = ({ car }: any) => {
 
   return (
     <div
-      style={{ border: '1px solid #ADACAC', borderRadius: 4 }}
+      style={{ border: "1px solid #ADACAC", borderRadius: 4 }}
       data-dealer={dealer_slug}
       data-stockNumber={stock_number}
       data-vin={vin}
     >
       <Card3Container>
         <CarConditionContainer3>
-          <div style={{ display: 'flex', columnGap: 4 }}>
+          <div style={{ display: "flex", columnGap: 4 }}>
             <VehicleCond3 cond={cond}>{cond}</VehicleCond3>
             {stock_number ? (
               <StockNumber3> | #{stock_number}</StockNumber3>
             ) : (
-              ''
+              ""
             )}
           </div>
           {
@@ -143,9 +143,9 @@ const CardDesign3 = ({ car }: any) => {
           <div>
             {isNaN(Number(pricing)) ? pricing : currencyFormat(Number(pricing))}
           </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
             <CardMobileMileage3>
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <div style={{ display: "flex", flexDirection: "column" }}>
                 {mileage_format && <span>Color: {ext_color}</span>}
                 <span>Interior Color: {int_color}</span>
               </div>
@@ -186,7 +186,7 @@ const CardDesign3 = ({ car }: any) => {
                   content={tag_addit_title}
                 />
               )}
-              {is_special || params.get('special') ? (
+              {is_special || params.get("special") ? (
                 <Card2Badge
                   top={`${
                     !tag_addit_title
@@ -227,11 +227,11 @@ const CardDesign3 = ({ car }: any) => {
             <div>
               <CardTitle3 onClick={handleNavigateToVehicle}>
                 {title_short?.length > 50
-                  ? title_short.slice(1, 50) + '..'
+                  ? title_short.slice(1, 50) + ".."
                   : title_short}
               </CardTitle3>
               <CardMileageContainer3>
-                {mileage_format && <span>Color: {ext_color}</span>} |{' '}
+                {mileage_format && <span>Color: {ext_color}</span>} |{" "}
                 <span>Interior Color: {int_color}</span>
               </CardMileageContainer3>
             </div>
@@ -260,7 +260,7 @@ const CardDesign3 = ({ car }: any) => {
           <Button
             variant="outlined"
             shape="sharp"
-            style={{ border: '1px solid #b6b6b6', fontSize: '0.8em' }}
+            style={{ border: "1px solid #b6b6b6", fontSize: "0.8em" }}
           >
             Estimate Payment
           </Button>
@@ -268,13 +268,18 @@ const CardDesign3 = ({ car }: any) => {
           <CertifiedLogosContainer>
             {logos?.length
               ? logos
-                  .filter((logo: any) => logo.name === 'certified')
+                  .filter((logo: any) => logo.name === "certified")
                   .map(({ url, src, name }: any) => (
-                    <a key={`${name}-${url}`} href={url} target="_blank">
+                    <a
+                      key={`${name}-${url}`}
+                      href={url}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       <img width={90} height={30} src={src} alt={name} />
                     </a>
                   ))
-              : ''}
+              : ""}
           </CertifiedLogosContainer>
         </CardFooterInner3>
       </CardFooter3>
