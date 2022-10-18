@@ -80,10 +80,12 @@ const CardVideo = ({
             borderTopLeftRadius: 11,
             borderTopRightRadius: 11,
           }}
+          placeholder={posterPlaceholder ? 'blur' : 'empty'}
+          blurDataURL={posterPlaceholder}
+          layout="fill"
+          priority
+          //@ts-ignore
           src={poster}
-          placeholder={posterPlaceholder}
-          alt="video"
-          onErrorImage={errorImage}
         />
         <span
           style={{
