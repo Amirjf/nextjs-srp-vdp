@@ -9,8 +9,15 @@ const nextConfig = {
   },
   reactStrictMode: true,
   swcMinify: true,
-  compiler: { styledComponents: true, },
-
+  compiler: { styledComponents: true },
+  images: {
+    domains: [
+      'mbspokane.datgate.com',
+      'vehicle-photos-published.vauto.com',
+      'mbmarin.datgate.com',
+      's3.amazonaws.com',
+    ],
+  },
 };
 
 module.exports = nextConfig;

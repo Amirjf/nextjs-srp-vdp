@@ -1,16 +1,16 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { GoLocation } from "react-icons/go";
-
-import { useTheme } from "styled-components";
-import { useCopyToClipboard, useLocalStorage } from "usehooks-ts";
-import useVehicle from "../../../../../hooks/useVehicle";
-import { kFormatter } from "../../../badge/content/Badge";
-import CardVideo from "../../../card-video/content/CardVideo";
-import Tooltip from "../../../tooltip/content/Tooltip";
-import CardTopLabel from "../../card-design1/card-top-label/content/CardTopLabel";
-import { currencyFormat } from "../../utils/utils";
+import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { GoLocation } from 'react-icons/go';
+import Link from 'next/link';
+import { useTheme } from 'styled-components';
+import { useCopyToClipboard, useLocalStorage } from 'usehooks-ts';
+import useVehicle from '../../../../../hooks/useVehicle';
+import { kFormatter } from '../../../badge/content/Badge';
+import CardVideo from '../../../card-video/content/CardVideo';
+import Tooltip from '../../../tooltip/content/Tooltip';
+import CardTopLabel from '../../card-design1/card-top-label/content/CardTopLabel';
+import { currencyFormat } from '../../utils/utils';
 import {
   Card2Container,
   Card2Header,
@@ -28,14 +28,14 @@ import {
   CertifiedLogosContainer,
   CardAddressContainer,
   FooterRow,
-} from "../styles/cardDesign2.styles";
-import Card2Badge from "./card2-badge/content/Card2Badge";
-import { CardDesign2Props } from "./cardDesign2_types";
-import { useSWRConfig } from "swr";
-import useQuery from "../../../../../hooks/useQuery";
-import { CopyableText } from "../../../../VDP/vehicle-info/styles/vehicleInfo.styles";
-import { FaRegCopy } from "react-icons/fa";
-import { handleShowingTextWithTradeMark } from "../../../../../global/utils/utils";
+} from '../styles/cardDesign2.styles';
+import Card2Badge from './card2-badge/content/Card2Badge';
+import { CardDesign2Props } from './cardDesign2_types';
+import { useSWRConfig } from 'swr';
+import useQuery from '../../../../../hooks/useQuery';
+import { CopyableText } from '../../../../VDP/vehicle-info/styles/vehicleInfo.styles';
+import { FaRegCopy } from 'react-icons/fa';
+import { handleShowingTextWithTradeMark } from '../../../../../global/utils/utils';
 
 const POSITION_FOR_BADGE = 15;
 
@@ -48,7 +48,6 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
     pricing,
     stock_number,
     veh_no_photo_url,
-    id,
     cond,
     mileage_format,
     video,
@@ -70,14 +69,11 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
     dealer_slug,
     drive_train,
   } = car;
-
   const theme = useTheme();
   const params = useQuery();
-  const [vehicleId, setVehicleId] = useState(null);
-  const [savedCars, setSaveCar] = useLocalStorage<any>("savedCars", []);
+  const [savedCars, setSaveCar] = useLocalStorage<any>('savedCars', []);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
-  const { cache } = useSWRConfig();
   const [stockNumCopyValue, copyStockNumber] = useCopyToClipboard();
 
   const handleSaveCar = () => {
@@ -89,18 +85,6 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
       (saveCar: any) => saveCar.id !== carToRemove.id
     );
     setSaveCar(updatedSavedCars);
-  };
-
-  const data = useVehicle(vehicleId);
-
-  const handleNavigateToVehicle = () => {
-    const existsInCache = cache.get(`${id}`);
-
-    if (existsInCache) {
-      window.location.assign(`#/vdp/${year}/${make}/${model}/${id}`);
-    } else {
-      setVehicleId(car.id);
-    }
   };
 
   const handleSavingVehicle = () => {
@@ -126,7 +110,7 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
       whileHover={{
         scale: 1.01,
         zIndex: 3,
-        boxShadow: "0px 4px 11px 0px rgba(0, 0, 0, 0.1)",
+        boxShadow: '0px 4px 11px 0px rgba(0, 0, 0, 0.1)',
       }}
       data-dealer={dealer_slug}
       data-stockNumber={stock_number}
@@ -150,7 +134,7 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
                 content={tag_addit_title}
               />
             )}
-            {is_special || params.get("special") ? (
+            {is_special || params.get('special') ? (
               <Card2Badge
                 top={`${
                   !tag_addit_title
@@ -162,44 +146,46 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
             ) : undefined}
           </>
         )}
-        <a href={`#/vdp/${year}/${make}/${model}/${id}`}>
-          <Card2ImageWrapper>
-            {video ? (
-              <CardVideo
-                videoCC={video_cc}
-                poster={photo_small}
-                posterPlaceholder={photo_base64}
-                videoSrc={video}
-                errorImage={veh_no_photo_url}
-                carData={car}
-                setVideoPlaying={setIsVideoPlaying}
-                cardDesign="theme2"
-              />
-            ) : (
-              <Card2Image
-                onClick={handleNavigateToVehicle}
-                src={photo_small}
-                placeholder={photo_base64}
-                alt={title_short}
-                onErrorImage={veh_no_photo_url}
-                link={car.id}
-              />
-            )}
-          </Card2ImageWrapper>
-        </a>
+        <Link prefetch={false} href={`vehicle/${vin}`}>
+          <a>
+            <Card2ImageWrapper>
+              {video ? (
+                <CardVideo
+                  videoCC={video_cc}
+                  poster={photo_small}
+                  posterPlaceholder={photo_base64}
+                  videoSrc={video}
+                  errorImage={veh_no_photo_url}
+                  carData={car}
+                  setVideoPlaying={setIsVideoPlaying}
+                  cardDesign="theme2"
+                />
+              ) : (
+                <Card2Image
+                  placeholder={photo_base64 ? 'blur' : 'empty'}
+                  blurDataURL={photo_base64}
+                  layout="fill"
+                  priority
+                  src={photo_small}
+                  alt={title_short}
+                />
+              )}
+            </Card2ImageWrapper>
+          </a>
+        </Link>
       </Card2Header>
       <CardBody2>
         <CarConditionContainer2>
-          <div style={{ display: "flex", columnGap: 4 }}>
+          <div style={{ display: 'flex', columnGap: 4 }}>
             <VehicleCond2 cond={cond}>
-              {cond === "used" ? "Pre-Owned" : cond}
+              {cond === 'used' ? 'Pre-Owned' : cond}
             </VehicleCond2>
-            {stock_number && "|"}
+            {stock_number && '|'}
             {stock_number ? (
               <Tooltip
                 showOnClick
                 position="right"
-                content={true ? "Stock # Copied !" : "Click to Copy"}
+                content={true ? 'Stock # Copied !' : 'Click to Copy'}
               >
                 <CopyableText>
                   <StockNumnber2 onClick={() => copyStockNumber(stock_number)}>
@@ -209,7 +195,7 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
                 </CopyableText>
               </Tooltip>
             ) : (
-              ""
+              ''
             )}
           </div>
           {
@@ -218,16 +204,15 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
             </Tooltip>
           }
         </CarConditionContainer2>
-        <a href={`#/vdp/${year}/${make}/${model}/${id}`}>
-          <CardTitle2
-            onClick={handleNavigateToVehicle}
-            dangerouslySetInnerHTML={{
-              __html: handleShowingTextWithTradeMark(
-                `${year} ${make} ${model} ${drive_train}`
-              ),
-            }}
-          ></CardTitle2>
-        </a>
+
+        <CardTitle2
+          dangerouslySetInnerHTML={{
+            __html: handleShowingTextWithTradeMark(
+              `${year} ${make} ${model} ${drive_train}`
+            ),
+          }}
+        ></CardTitle2>
+
         <CardFooter2>
           <FooterRow>
             <CardMileage2>
@@ -235,16 +220,16 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
             </CardMileage2>
             <CardPriceContainer2>
               {!pricing || isNaN(Number(pricing))
-                ? "Call for Price"
+                ? 'Call for Price'
                 : currencyFormat(Number(pricing))}
             </CardPriceContainer2>
           </FooterRow>
 
           <div
             style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
               minHeight: 36,
             }}
           >
@@ -264,7 +249,7 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
                   )}
                 </CardAddressContainer>
               ) : (
-                ""
+                ''
               )}
             </CardMileage2>
             <CertifiedLogosContainer>
@@ -272,11 +257,7 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
                 logos.map(({ url, src, name }: any) => {
                   if (!url.length) {
                     return (
-                      <span
-                        key={`${name}-logo`}
-                        style={{ cursor: "pointer" }}
-                        onClick={handleNavigateToVehicle}
-                      >
+                      <span key={`${name}-logo`} style={{ cursor: 'pointer' }}>
                         <img width={90} height={30} src={src} alt={name} />
                       </span>
                     );

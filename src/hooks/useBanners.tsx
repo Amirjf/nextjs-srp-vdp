@@ -4,15 +4,10 @@ import { useMediaQuery } from 'usehooks-ts';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import CarClient from '../client/client';
-const fetcher = (url: string) => CarClient.get(url).then((res) => res.data);
 
 const useBanners = () => {
   const { data, error } = useSWR(
-    'https://spokanemercedes.com/api/json/vehicles/opt.json?type=srpbanners',
-    fetcher,
-    {
-      refreshInterval: 1000,
-    }
+    'https://mbmarin.datgate.com/api/json/vehicles/opt.json?type=srpbanners'
   );
 
   const mediumMedia = useMediaQuery('(min-width:768px) and (max-width:1700px)');

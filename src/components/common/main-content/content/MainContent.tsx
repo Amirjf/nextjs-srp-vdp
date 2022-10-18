@@ -4,19 +4,21 @@ import React, {
   useEffect,
   useState,
   useRef,
-} from "react";
-import useInfiniteVehicles from "../../../../hooks/useInfiniteVehicles";
-import { CarType } from "./mainContent_types";
-import { GoogleContext } from "../../../../context/GoogleOptContext";
+} from 'react';
+import useInfiniteVehicles from '../../../../hooks/useInfiniteVehicles';
+import { CarType } from './mainContent_types';
+import { GoogleContext } from '../../../../context/GoogleOptContext';
 import {
   CARD_LOADERS,
   getSrpTheme,
   handleShowingFirstBanner,
-} from "../utils/utils";
+} from '../utils/utils';
 
-import { useIntersectionObserver, useReadLocalStorage } from "usehooks-ts";
-import useQuery from "../../../../hooks/useQuery";
-import SrpDisclaimer from "../../../srp-disclaimer/content/SrpDisclaimer";
+import { useIntersectionObserver, useReadLocalStorage } from 'usehooks-ts';
+import useQuery from '../../../../hooks/useQuery';
+import SrpDisclaimer from '../../../srp-disclaimer/content/SrpDisclaimer';
+import Banner from '../../../banner/content/AdBanner';
+import useBanners from '../../../../hooks/useBanners';
 
 const MainContent = ({ vehiclesData }: any) => {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -35,6 +37,7 @@ const MainContent = ({ vehiclesData }: any) => {
     setSize,
     size,
   } = useInfiniteVehicles();
+  const { handleMediaQuery, bannersToShow } = useBanners();
 
   useEffect(() => {
     if (vehicles) {
@@ -44,7 +47,7 @@ const MainContent = ({ vehiclesData }: any) => {
   }, [vehicles]);
 
   useEffect(() => {
-    if (isVisible && !urlParams.get("special")) {
+    if (isVisible && !urlParams.get('special')) {
       setSize(size + 1);
     }
   }, [isVisible]);
@@ -59,21 +62,23 @@ const MainContent = ({ vehiclesData }: any) => {
 
   const vehiclesToShow = vehicles ?? [vehiclesData];
 
+  console.log(vehiclesToShow, 'vehiclesToShow');
+
   return (
     <>
       {vehiclesToShow?.map((cars: CarType[], page: number) => {
         return cars.map((car: CarType, index: number) => {
-          // const getNumberOfColsByScreen: any = handleMediaQuery();
-          const srpThemeTranslator = getSrpTheme["theme2"];
+          const getNumberOfColsByScreen: any = handleMediaQuery();
+          const srpThemeTranslator = getSrpTheme['theme2'];
           return (
             <Fragment key={car.id}>
-              {/* {index % getNumberOfColsByScreen === 0 ? (
-                  <Banner
-                    media={handleMediaQuery}
-                    getCols={getNumberOfColsByScreen}
-                    position={index}
-                  />
-                ) : undefined} */}
+              {index % getNumberOfColsByScreen === 0 ? (
+                <Banner
+                  media={handleMediaQuery}
+                  getCols={getNumberOfColsByScreen}
+                  position={index}
+                />
+              ) : undefined}
               {srpThemeTranslator(car)}
             </Fragment>
           );
@@ -82,24 +87,24 @@ const MainContent = ({ vehiclesData }: any) => {
       <div
         ref={ref}
         style={{
-          position: "absolute",
+          position: 'absolute',
           bottom: 100,
           width: 100,
           height: 100,
           zIndex: 999999999,
         }}
       ></div>
-      {/* {vehicles && vehicles[0]?.length < 6
+      {vehicles && vehicles[0]?.length < 6
         ? handleShowingFirstBanner(bannersToShow)
-        : ''} */}
+        : ''}
       {isLoadingMore && !isReachingEnd ? (
         <>
           {Array.from(Array(8).keys()).map((s, index) => (
-            <Fragment key={index}>{CARD_LOADERS["theme2"]}</Fragment>
+            <Fragment key={index}>{CARD_LOADERS['theme2']}</Fragment>
           ))}
         </>
       ) : (
-        ""
+        ''
       )}
     </>
   );

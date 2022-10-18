@@ -1,4 +1,4 @@
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import Image from 'next/image';
 import styled from 'styled-components';
 import { mediaQueries } from '../../../../../global/utils/mediaQueries';
 import BlurImage from '../../../blur-image/BlurImage';
@@ -28,7 +28,7 @@ export const Card2ImageWrapper = styled.div({
   width: '100%',
   aspectRatio: '2.8 / 1.5',
 });
-export const Card2Image = styled(BlurImage)(({ theme }) => ({
+export const Card2Image = styled(Image)(({ theme }) => ({
   width: '100%',
   aspectRatio: '2.8 / 1.5',
   height: 'auto',
