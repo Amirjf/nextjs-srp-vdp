@@ -28,7 +28,7 @@ export const Card2ImageWrapper = styled.div({
   width: '100%',
   aspectRatio: '2.8 / 1.5',
 });
-export const Card2Image = styled(Image)(({ theme }) => ({
+export const Card2Image = styled(Image)({
   width: '100%',
   aspectRatio: '2.8 / 1.5',
   height: 'auto',
@@ -36,7 +36,7 @@ export const Card2Image = styled(Image)(({ theme }) => ({
   borderTopLeftRadius: 11,
   borderTopRightRadius: 11,
   cursor: 'pointer',
-}));
+});
 
 export const CardTitle2 = styled.h2({
   fontWeight: 600,
