@@ -1,15 +1,15 @@
-import { useEffect, useContext, useRef, useCallback } from 'react';
-import useSWRInfinite from 'swr/infinite';
-import CarClient from '../client/client';
-import { CarsContext } from '../context/CarsContext';
+import { useEffect, useContext, useRef, useCallback } from "react";
+import useSWRInfinite from "swr/infinite";
+import CarClient from "../client/client";
+import { CarsContext } from "../context/CarsContext";
 import {
   handleCarTypes,
   handlePrice,
   handleSearch,
   handleMileage,
   handleSortQuery,
-} from '../context/utils/filterUtils';
-import { handleUrl } from '../context/utils/handleFiltersQuery';
+} from "../context/utils/filterUtils";
+import { handleUrl } from "../context/utils/handleFiltersQuery";
 
 // export function laggy(useSWRNext: any) {
 //   return (key: any, fetcher: any, config: any) => {
@@ -69,7 +69,7 @@ const useInfiniteVehicles = () => {
         : `${handleSearch(searchQuery)}/pagenum=${pageIndex + 1}`;
 
     if (!loadingFilters) {
-      return `https://spokanemercedes.com/api/json/vehicles/fl.json?url=inventory/${getQueries}`;
+      return `https://mbspokane.datgate.com/api/json/vehicles/fl.json?url=inventory`;
     }
   };
 
@@ -83,7 +83,7 @@ const useInfiniteVehicles = () => {
 
   const isLoadingMore =
     isLoadingInitialData ||
-    (size > 0 && data && typeof data[size - 1] === 'undefined');
+    (size > 0 && data && typeof data[size - 1] === "undefined");
 
   const isEmpty = data?.[0]?.length === 0;
 
