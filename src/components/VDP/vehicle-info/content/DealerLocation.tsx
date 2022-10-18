@@ -1,6 +1,6 @@
-import { useParams } from 'react-router-dom';
-import useVehicle from '../../../../hooks/useVehicle';
-import { Typography } from '../../../common';
+import { useParams } from "react-router-dom";
+import useVehicle from "../../../../hooks/useVehicle";
+import { Typography } from "../../../common";
 
 const DealerLocation = () => {
   const params = useParams();
@@ -26,9 +26,9 @@ const DealerLocation = () => {
       <Typography strong variant="h5">
         Hours :
       </Typography>
-      {dealer_hours.map((hour: any) => (
-        <div>
-          <span style={{ fontWeight: 500 }}>{hour?.department}</span> :{' '}
+      {dealer_hours.map((hour: any, idx: number) => (
+        <div key={idx}>
+          <span style={{ fontWeight: 500 }}>{hour?.department}</span> :{" "}
           {hour?.status}
         </div>
       ))}

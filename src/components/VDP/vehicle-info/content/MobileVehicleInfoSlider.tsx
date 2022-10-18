@@ -104,7 +104,7 @@ const MobileVehicleInfoSlider = () => {
                   fontFamily: 'Arial',
                 }}
               >
-                I'm Interested
+                {`I'm Interested`}
               </Button>
             )}
           </div>
