@@ -61,7 +61,7 @@ const MainContent = ({ vehiclesData }: any) => {
 
   return (
     <>
-      {data?.map((cars: CarType[], page: number) => {
+      {vehiclesToShow?.map((cars: CarType[], page: number) => {
         return cars.map((car: CarType, index: number) => {
           // const getNumberOfColsByScreen: any = handleMediaQuery();
           const srpThemeTranslator = getSrpTheme["theme2"];
