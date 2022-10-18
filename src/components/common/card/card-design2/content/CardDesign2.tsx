@@ -234,11 +234,9 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
               {kFormatter(Number(mileage_format))} miles
             </CardMileage2>
             <CardPriceContainer2>
-              <CardPriceContainer2>
-                {!pricing || isNaN(Number(pricing))
-                  ? "Call for Price"
-                  : currencyFormat(Number(pricing))}
-              </CardPriceContainer2>
+              {!pricing || isNaN(Number(pricing))
+                ? "Call for Price"
+                : currencyFormat(Number(pricing))}
             </CardPriceContainer2>
           </FooterRow>
 

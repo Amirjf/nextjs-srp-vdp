@@ -1,29 +1,29 @@
 import { CarType } from "../content/mainContent_types";
-// import { Card, CardDesign3, CardDesign2 } from "../../card";
+import { Card, CardDesign3, CardDesign2 } from "../../card";
 
 import CardDesign2Loader from "../../card/card-design2/content/card-design-2-loader/CardDesign2Loader";
 import CardDesign3Loader from "../../card/card-design3/content/card-design-3-loader/CardDesign3Loader";
 import VerticalAdBanner from "../../../banner/content/VerticalAdBanner";
 import Banner from "../../../banner/content/AdBanner";
 import dynamic from "next/dynamic";
-const Card: any = dynamic(
-  () => import("../../card/card-design1/content/Card"),
-  {
-    ssr: false,
-  }
-);
-const CardDesign2: any = dynamic(
-  () => import("../../card/card-design2/content/CardDesign2"),
-  {
-    ssr: false,
-  }
-);
-const CardDesign3: any = dynamic(
-  () => import("../../card/card-design3/content/CardDesign3"),
-  {
-    ssr: false,
-  }
-);
+// const Card: any = dynamic(
+//   () => import("../../card/card-design1/content/Card"),
+//   {
+//     ssr: false,
+//   }
+// );
+// const CardDesign2: any = dynamic(
+//   () => import("../../card/card-design2/content/CardDesign2"),
+//   {
+//     ssr: false,
+//   }
+// );
+// const CardDesign3: any = dynamic(
+//   () => import("../../card/card-design3/content/CardDesign3"),
+//   {
+//     ssr: false,
+//   }
+// );
 Array.prototype.insert = function (index: number, item: any) {
   this.splice(index, 0, item);
 };

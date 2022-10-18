@@ -69,7 +69,7 @@ const useInfiniteVehicles = () => {
         : `${handleSearch(searchQuery)}/pagenum=${pageIndex + 1}`;
 
     if (!loadingFilters) {
-      return `https://mbspokane.datgate.com/api/json/vehicles/fl.json?url=inventory`;
+      return `https://mbspokane.datgate.com/api/json/vehicles/fl.json?url=inventory/${getQueries}`;
     }
   };
 

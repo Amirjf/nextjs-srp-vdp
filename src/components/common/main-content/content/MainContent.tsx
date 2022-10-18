@@ -36,22 +36,22 @@ const MainContent = ({ vehiclesData }: any) => {
     size,
   } = useInfiniteVehicles();
 
-  // useEffect(() => {
-  //   if (vehicles) {
-  //     setData(vehicles);
-  //     setIsSWR(true);
-  //   }
-  // }, [vehicles]);
+  useEffect(() => {
+    if (vehicles) {
+      setData(vehicles);
+      setIsSWR(true);
+    }
+  }, [vehicles]);
 
-  // useEffect(() => {
-  //   if (isVisible && !urlParams.get("special")) {
-  //     setSize(size + 1);
-  //   }
-  // }, [isVisible]);
+  useEffect(() => {
+    if (isVisible && !urlParams.get("special")) {
+      setSize(size + 1);
+    }
+  }, [isVisible]);
 
   if (isSwr && error) return <h2>{error}</h2>;
 
-  if (isSwr && isLoadingMore) return <>Loading ...</>;
+  // if (isSwr && isLoadingMore) return <>Loading ...</>;
 
   // const { cachedSrpTheme, srpTheme }: any = useContext(GoogleContext);
 
@@ -92,15 +92,15 @@ const MainContent = ({ vehiclesData }: any) => {
       {/* {vehicles && vehicles[0]?.length < 6
         ? handleShowingFirstBanner(bannersToShow)
         : ''} */}
-      {/* {isLoadingMore && !isReachingEnd ? (
+      {isLoadingMore && !isReachingEnd ? (
         <>
           {Array.from(Array(8).keys()).map((s, index) => (
-            <Fragment key={index}>{CARD_LOADERS[srpCardsTheme]}</Fragment>
+            <Fragment key={index}>{CARD_LOADERS["theme2"]}</Fragment>
           ))}
         </>
       ) : (
-        ''
-      )} */}
+        ""
+      )}
     </>
   );
 };

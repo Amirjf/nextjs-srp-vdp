@@ -32,10 +32,10 @@ export default function Home({ initVehicles }: any) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps = async () => {
   let url = `https://mbspokane.datgate.com/api/json/vehicles/fl.json?url=inventory`;
   const res = await axios.get(url);
-  console.log(context);
+
   return {
     props: {
       initVehicles: res.data,
