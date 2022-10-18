@@ -1,18 +1,18 @@
-import { Controller, useForm } from 'react-hook-form';
-import { Button, Col, Input, Row } from '../../common';
-import AirDatepickerReact from '../../common/date-picker/DatePicker';
-import RadioBtn from '../../common/radio-btn/RadioBtn';
-import { Space } from '../../common/space';
-import { ErrorField, FormContainer } from './scheduleTestDriveForm.styles';
-import { useEffect, useRef, useState } from 'react';
-import { useSessionStorage } from 'usehooks-ts';
-import { useParams } from 'react-router-dom';
+import { Controller, useForm } from "react-hook-form";
+import { Button, Col, Input, Row } from "../../common";
+import AirDatepickerReact from "../../common/date-picker/DatePicker";
+import RadioBtn from "../../common/radio-btn/RadioBtn";
+import { Space } from "../../common/space";
+import { ErrorField, FormContainer } from "./scheduleTestDriveForm.styles";
+import { useEffect, useRef, useState } from "react";
+import { useSessionStorage } from "usehooks-ts";
+import { useParams } from "react-router-dom";
 
 const OPTIONS = [
-  { label: 'Any time', value: 'any time' },
-  { label: 'Morning', value: 'morning' },
-  { label: 'Afternoon', value: 'afternoon' },
-  { label: 'Evening', value: 'evening' },
+  { label: "Any time", value: "any time" },
+  { label: "Morning", value: "morning" },
+  { label: "Afternoon", value: "afternoon" },
+  { label: "Evening", value: "evening" },
 ];
 
 const ScheduleTestDriveForm = () => {
@@ -29,7 +29,7 @@ const ScheduleTestDriveForm = () => {
 
   const formRef: any = useRef();
 
-  const [formData, setFormData] = useSessionStorage<any>('formData', {});
+  const [formData, setFormData] = useSessionStorage<any>("formData", {});
 
   const [isFormValid, setIsFormValid] = useState(false);
 
@@ -39,7 +39,7 @@ const ScheduleTestDriveForm = () => {
   };
 
   const { register, handleSubmit, reset, formState } = useForm({
-    mode: 'all',
+    mode: "all",
   });
 
   const { errors, isSubmitSuccessful, isValid } = formState;
@@ -49,14 +49,14 @@ const ScheduleTestDriveForm = () => {
   };
 
   const onSubmit = (data: any) => {
-    const refactoredPhone = data.phoneNumber.split('-').join('');
+    const refactoredPhone = data.phoneNumber.split("-").join("");
 
-    data['phoneNumber'] = refactoredPhone;
+    data["phoneNumber"] = refactoredPhone;
 
     const getFormData = {
       vehicleId: params.id,
       isFormValid: formState.isValid,
-      key: 'scheduletestdriveform',
+      key: "scheduletestdriveform",
       formData: { date, ...data },
     };
 
@@ -80,7 +80,7 @@ const ScheduleTestDriveForm = () => {
   return (
     <FormContainer
       isFormSubmitted={
-        formData?.key === 'scheduletestdriveform' && formData.isFormValid
+        formData?.key === "scheduletestdriveform" && formData.isFormValid
       }
     >
       <form
@@ -90,20 +90,22 @@ const ScheduleTestDriveForm = () => {
       >
         <Row style={{ rowGap: 20, marginBottom: 25 }}>
           <Col xs={12} sm={12} md={6} lg={6} xl={6}>
-            <Space direction="vertical" style={{ width: '100%' }}>
+            <Space direction="vertical" style={{ width: "100%" }}>
               <label>Date</label>
               <AirDatepickerReact onSelect={onSelectDate} />
             </Space>
           </Col>
           <Col xs={12} sm={12} md={6} lg={6} xl={6}>
-            <Space direction="vertical" style={{ width: '100%' }}>
+            <Space direction="vertical" style={{ width: "100%" }}>
               <label>Time</label>
               <select
-                style={{ width: '100%' }}
-                {...register('time', { required: true })}
+                style={{ width: "100%" }}
+                {...register("time", { required: true })}
               >
-                {OPTIONS.map((option: any) => (
-                  <option value={option.value}>{option.label}</option>
+                {OPTIONS.map((option: any, idx: number) => (
+                  <option key={`${option.label}-${idx}`} value={option.value}>
+                    {option.label}
+                  </option>
                 ))}
               </select>
             </Space>
@@ -115,7 +117,7 @@ const ScheduleTestDriveForm = () => {
               register={register}
               name="fullName"
               placeholder="Chris Joans"
-              style={{ background: '#fff' }}
+              style={{ background: "#fff" }}
               color="#000"
               scale="xs"
               rules={{
@@ -123,10 +125,10 @@ const ScheduleTestDriveForm = () => {
                 minLength: 6,
               }}
             />
-            {errors.fullName?.type === 'required' && (
+            {errors.fullName?.type === "required" && (
               <ErrorField>First name is required</ErrorField>
             )}
-            {errors.fullName?.type === 'minLength' && (
+            {errors.fullName?.type === "minLength" && (
               <ErrorField>
                 Please enter your first name and last name
               </ErrorField>
@@ -155,7 +157,7 @@ const ScheduleTestDriveForm = () => {
               rules={{ required: true }}
             />
           </Col>
-          {errors.methode?.type === 'required' && (
+          {errors.methode?.type === "required" && (
             <ErrorField>Please choose one of the methodes</ErrorField>
           )}
 
@@ -166,7 +168,7 @@ const ScheduleTestDriveForm = () => {
               type="tel"
               name="phoneNumber"
               placeholder="2323-23232-323"
-              style={{ background: '#fff' }}
+              style={{ background: "#fff" }}
               color="#000"
               scale="xs"
               value={phoneNumber}
@@ -175,19 +177,19 @@ const ScheduleTestDriveForm = () => {
               }}
               onChange={(e: any) => {
                 if (e.target.value.length <= 12) {
-                  var cleaned = ('' + e.target.value).replace(/\D/g, '');
+                  var cleaned = ("" + e.target.value).replace(/\D/g, "");
 
                   let normValue = `${cleaned.substring(0, 3)}${
-                    cleaned.length > 3 ? '-' : ''
+                    cleaned.length > 3 ? "-" : ""
                   }${cleaned.substring(3, 6)}${
-                    cleaned.length > 6 ? '-' : ''
+                    cleaned.length > 6 ? "-" : ""
                   }${cleaned.substring(6, 11)}`;
                   handlePhone(normValue);
                 }
               }}
             />
 
-            {errors.phoneNumber?.type === 'required' && (
+            {errors.phoneNumber?.type === "required" && (
               <ErrorField>Phone number is required</ErrorField>
             )}
           </Col>
@@ -198,12 +200,12 @@ const ScheduleTestDriveForm = () => {
               name="email"
               type="email"
               placeholder="email@gmail.com"
-              style={{ background: '#fff' }}
+              style={{ background: "#fff" }}
               color="#000"
               scale="xs"
               rules={{ required: true, validate: handleEmailValidation }}
             />
-            {errors.email?.type === 'required' && (
+            {errors.email?.type === "required" && (
               <ErrorField>Email is required</ErrorField>
             )}
           </Col>

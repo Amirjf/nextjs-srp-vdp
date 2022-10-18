@@ -20,7 +20,7 @@ export default function Home({ initVehicles }: any) {
           {/* <SRPFilterHandler /> */}
           {/* <TopSearch /> */}
           <MainContainer>
-            {/* <Sidebar /> */}
+            <Sidebar />
             {/* {isEmpty && <NotFoundVehicle />} */}
             <MainContentContainer>
               <MainContent vehiclesData={initVehicles} />

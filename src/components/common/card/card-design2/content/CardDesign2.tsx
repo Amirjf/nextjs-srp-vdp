@@ -1,16 +1,16 @@
-import { motion } from 'framer-motion';
-import { useState } from 'react';
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
-import { GoLocation } from 'react-icons/go';
+import { motion } from "framer-motion";
+import { useState } from "react";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { GoLocation } from "react-icons/go";
 
-import { useTheme } from 'styled-components';
-import { useCopyToClipboard, useLocalStorage } from 'usehooks-ts';
-import useVehicle from '../../../../../hooks/useVehicle';
-import { kFormatter } from '../../../badge/content/Badge';
-import CardVideo from '../../../card-video/content/CardVideo';
-import Tooltip from '../../../tooltip/content/Tooltip';
-import CardTopLabel from '../../card-design1/card-top-label/content/CardTopLabel';
-import { currencyFormat } from '../../utils/utils';
+import { useTheme } from "styled-components";
+import { useCopyToClipboard, useLocalStorage } from "usehooks-ts";
+import useVehicle from "../../../../../hooks/useVehicle";
+import { kFormatter } from "../../../badge/content/Badge";
+import CardVideo from "../../../card-video/content/CardVideo";
+import Tooltip from "../../../tooltip/content/Tooltip";
+import CardTopLabel from "../../card-design1/card-top-label/content/CardTopLabel";
+import { currencyFormat } from "../../utils/utils";
 import {
   Card2Container,
   Card2Header,
@@ -28,14 +28,14 @@ import {
   CertifiedLogosContainer,
   CardAddressContainer,
   FooterRow,
-} from '../styles/cardDesign2.styles';
-import Card2Badge from './card2-badge/content/Card2Badge';
-import { CardDesign2Props } from './cardDesign2_types';
-import { useSWRConfig } from 'swr';
-import useQuery from '../../../../../hooks/useQuery';
-import { CopyableText } from '../../../../VDP/vehicle-info/styles/vehicleInfo.styles';
-import { FaRegCopy } from 'react-icons/fa';
-import { handleShowingTextWithTradeMark } from '../../../../../global/utils/utils';
+} from "../styles/cardDesign2.styles";
+import Card2Badge from "./card2-badge/content/Card2Badge";
+import { CardDesign2Props } from "./cardDesign2_types";
+import { useSWRConfig } from "swr";
+import useQuery from "../../../../../hooks/useQuery";
+import { CopyableText } from "../../../../VDP/vehicle-info/styles/vehicleInfo.styles";
+import { FaRegCopy } from "react-icons/fa";
+import { handleShowingTextWithTradeMark } from "../../../../../global/utils/utils";
 
 const POSITION_FOR_BADGE = 15;
 
@@ -74,7 +74,7 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
   const theme = useTheme();
   const params = useQuery();
   const [vehicleId, setVehicleId] = useState(null);
-  const [savedCars, setSaveCar] = useLocalStorage<any>('savedCars', []);
+  const [savedCars, setSaveCar] = useLocalStorage<any>("savedCars", []);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   const { cache } = useSWRConfig();
@@ -126,7 +126,7 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
       whileHover={{
         scale: 1.01,
         zIndex: 3,
-        boxShadow: '0px 4px 11px 0px rgba(0, 0, 0, 0.1)',
+        boxShadow: "0px 4px 11px 0px rgba(0, 0, 0, 0.1)",
       }}
       data-dealer={dealer_slug}
       data-stockNumber={stock_number}
@@ -150,7 +150,7 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
                 content={tag_addit_title}
               />
             )}
-            {is_special || params.get('special') ? (
+            {is_special || params.get("special") ? (
               <Card2Badge
                 top={`${
                   !tag_addit_title
@@ -190,16 +190,16 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
       </Card2Header>
       <CardBody2>
         <CarConditionContainer2>
-          <div style={{ display: 'flex', columnGap: 4 }}>
+          <div style={{ display: "flex", columnGap: 4 }}>
             <VehicleCond2 cond={cond}>
-              {cond === 'used' ? 'Pre-Owned' : cond}
+              {cond === "used" ? "Pre-Owned" : cond}
             </VehicleCond2>
-            {stock_number && '|'}
+            {stock_number && "|"}
             {stock_number ? (
               <Tooltip
                 showOnClick
                 position="right"
-                content={true ? 'Stock # Copied !' : 'Click to Copy'}
+                content={true ? "Stock # Copied !" : "Click to Copy"}
               >
                 <CopyableText>
                   <StockNumnber2 onClick={() => copyStockNumber(stock_number)}>
@@ -209,7 +209,7 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
                 </CopyableText>
               </Tooltip>
             ) : (
-              ''
+              ""
             )}
           </div>
           {
@@ -236,7 +236,7 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
             <CardPriceContainer2>
               <CardPriceContainer2>
                 {!pricing || isNaN(Number(pricing))
-                  ? 'Call for Price'
+                  ? "Call for Price"
                   : currencyFormat(Number(pricing))}
               </CardPriceContainer2>
             </CardPriceContainer2>
@@ -244,9 +244,9 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
 
           <div
             style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
               minHeight: 36,
             }}
           >
@@ -266,7 +266,7 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
                   )}
                 </CardAddressContainer>
               ) : (
-                ''
+                ""
               )}
             </CardMileage2>
             <CertifiedLogosContainer>
@@ -275,7 +275,8 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
                   if (!url.length) {
                     return (
                       <span
-                        style={{ cursor: 'pointer' }}
+                        key={`${name}-logo`}
+                        style={{ cursor: "pointer" }}
                         onClick={handleNavigateToVehicle}
                       >
                         <img width={90} height={30} src={src} alt={name} />
@@ -283,7 +284,12 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
                     );
                   }
                   return (
-                    <a key={`${name}-logo`} href={url} target="_blank">
+                    <a
+                      key={`${name}-logo`}
+                      href={url}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       <img width={90} height={30} src={src} alt={name} />
                     </a>
                   );
