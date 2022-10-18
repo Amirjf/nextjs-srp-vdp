@@ -57,7 +57,7 @@ const MainContent = ({ vehiclesData }: any) => {
 
   // const srpCardsTheme = cachedSrpTheme || srpTheme;
 
-  const vehiclesToShow = [vehiclesData] ?? vehicles;
+  const vehiclesToShow = vehicles ?? [vehiclesData];
 
   return (
     <>
