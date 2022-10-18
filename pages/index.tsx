@@ -1,10 +1,11 @@
-import axios from 'axios';
+import axios from "axios";
+import { GetServerSideProps, GetStaticProps } from "next";
 
-import { HelmetProvider } from 'react-helmet-async';
+import { HelmetProvider } from "react-helmet-async";
 
-import { MainContent, Sidebar } from '../src/components/common';
-import { MainContentContainer } from '../src/components/common/main-content/styles/mainContent.styles';
-import { MainContainer } from '../src/global/global/Global.styles';
+import { MainContent, Sidebar } from "../src/components/common";
+import { MainContentContainer } from "../src/components/common/main-content/styles/mainContent.styles";
+import { MainContainer } from "../src/global/global/Global.styles";
 
 export default function Home({ initVehicles }: any) {
   // const { data, error } = useSWR(
@@ -19,7 +20,7 @@ export default function Home({ initVehicles }: any) {
           {/* <SRPFilterHandler /> */}
           {/* <TopSearch /> */}
           <MainContainer>
-            <Sidebar />
+            {/* <Sidebar /> */}
             {/* {isEmpty && <NotFoundVehicle />} */}
             <MainContentContainer>
               <MainContent vehiclesData={initVehicles} />
@@ -31,13 +32,13 @@ export default function Home({ initVehicles }: any) {
   );
 }
 
-export async function getStaticProps() {
-  let url = `https://mbspokane.datgate.com/api/json/vehicles/fl.json?url=inventory/used-certified-new`;
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  let url = `https://mbspokane.datgate.com/api/json/vehicles/fl.json?url=inventory`;
   const res = await axios.get(url);
-
+  console.log(context);
   return {
     props: {
       initVehicles: res.data,
     },
   };
-}
+};
