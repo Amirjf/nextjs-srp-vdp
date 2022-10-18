@@ -161,6 +161,7 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
                   cardDesign="theme2"
                 />
               ) : (
+                //@ts-ignore
                 <Card2Image
                   placeholder={photo_base64 ? 'blur' : 'empty'}
                   blurDataURL={photo_base64}
