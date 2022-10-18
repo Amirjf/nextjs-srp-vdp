@@ -6,6 +6,7 @@ const Row: React.FC<RowProps> = ({ children, spacing, ...rest }: RowProps) => {
   const childrenWithProps = React.Children.map(children, (child) => {
     return React.isValidElement(child)
       ? React.cloneElement(child, {
+          //@ts-ignore
           spacing: spacing,
         })
       : child;
