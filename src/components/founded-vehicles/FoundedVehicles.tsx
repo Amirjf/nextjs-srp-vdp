@@ -7,7 +7,7 @@ import { SearchResult } from '../top-search/styles/topSearch.styles';
 
 const FoundedVehicles = ({ color }: any) => {
   const { data }: any = useInfiniteVehicles();
-  const { totalVehicles, isLagging } = useFilters();
+  const { totalVehicles } = useFilters();
   const { gChecker }: any = useContext(GoogleContext);
 
   return (
@@ -19,7 +19,7 @@ const FoundedVehicles = ({ color }: any) => {
           style={{ color: color || '#000' }}
         >
           Showing{' '}
-          {totalVehicles?.found_count && !isLagging && (
+          {totalVehicles?.found_count && true && (
             <strong>{`${totalVehicles?.found_count}`}</strong>
           )}
           {totalVehicles == undefined && <strong>0</strong>}
