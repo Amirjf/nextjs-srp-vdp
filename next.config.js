@@ -10,6 +10,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   compiler: { styledComponents: true },
+  eslint: { ignoreDuringBuilds: true },
   images: {
     domains: [
       'mbspokane.datgate.com',
