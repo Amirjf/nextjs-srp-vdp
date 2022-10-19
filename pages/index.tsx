@@ -36,10 +36,10 @@ export default function Home({ initVehicles }: any) {
 }
 
 export const getServerSideProps = async ({ param, res }: any) => {
-  // res.setHeader(
-  //   'Cache-Control',
-  //   'public, s-maxage=10, stale-while-revalidate=59'
-  // );
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=30, stale-while-revalidate=159'
+  );
 
   let url = `https://mbmarin.datgate.com/api/json/vehicles/fl.json?url=inventory`;
   const result = await axios.get(url);
