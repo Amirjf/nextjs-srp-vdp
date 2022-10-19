@@ -216,9 +216,9 @@ export const CarsProvider: React.FC<any> = ({ children }: any) => {
       ...(activeSort && { orderby: activeSort }),
     };
 
-    // const shallowEncoded = queryString.stringify(getFilters);
+    const shallowEncoded = queryString.stringify(getFilters);
 
-    router.push(getFilters, undefined, { shallow: true });
+    router.push(shallowEncoded, undefined, { shallow: true });
 
     // window.history.pushState({}, 'filters', '?' + shallowEncoded);
   }, [filters, carTypes, searchQuery, prices, mileages]);
