@@ -1,12 +1,15 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { addFilter, removeFilter } from './utils/filterUtils';
 import queryString from 'query-string';
+
 import CarClient from '../client/client';
 import { useLocalStorage, useReadLocalStorage } from 'usehooks-ts';
+import { useRouter } from 'next/router';
 
 export const CarsContext = createContext({});
 
 export const CarsProvider: React.FC<any> = ({ children }: any) => {
+  const router = useRouter();
   const [filters, setFilters] = useState<any>({});
 
   const [minimumPrice, setMinimumPrice] = useState(0);
@@ -213,7 +216,9 @@ export const CarsProvider: React.FC<any> = ({ children }: any) => {
       ...(activeSort && { orderby: activeSort }),
     };
 
-    const shallowEncoded = queryString.stringify(getFilters);
+    // const shallowEncoded = queryString.stringify(getFilters);
+
+    router.push(getFilters, undefined, { shallow: true });
 
     // window.history.pushState({}, 'filters', '?' + shallowEncoded);
   }, [filters, carTypes, searchQuery, prices, mileages]);
