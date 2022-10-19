@@ -9,6 +9,9 @@ const nextConfig = {
   },
   reactStrictMode: true,
   swcMinify: true,
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   compiler: { styledComponents: true },
   eslint: { ignoreDuringBuilds: true },
   images: {

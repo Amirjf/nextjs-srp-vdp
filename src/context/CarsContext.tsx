@@ -215,7 +215,7 @@ export const CarsProvider: React.FC<any> = ({ children }: any) => {
 
     const shallowEncoded = queryString.stringify(getFilters);
 
-    window.history.pushState({}, 'filters', '?' + shallowEncoded);
+    // window.history.pushState({}, 'filters', '?' + shallowEncoded);
   }, [filters, carTypes, searchQuery, prices, mileages]);
 
   const getRanges = async () => {
