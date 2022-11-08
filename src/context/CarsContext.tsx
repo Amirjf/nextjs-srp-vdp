@@ -9,7 +9,6 @@ import { useRouter } from 'next/router';
 export const CarsContext = createContext({});
 
 export const CarsProvider: React.FC<any> = ({ children }: any) => {
-  const router = useRouter();
   const [filters, setFilters] = useState<any>({});
   const [isClickedOnFilters, setIsClickedOnFilters] = useState(false);
   const [minimumPrice, setMinimumPrice] = useState(0);

@@ -21,6 +21,7 @@ const nextConfig = {
       'mbmarin.datgate.com',
       's3.amazonaws.com',
       'salemnissan.datgate.com',
+      'partnerstatic.carfax.com',
     ],
   },
 };

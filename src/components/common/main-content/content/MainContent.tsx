@@ -1,24 +1,12 @@
-import React, {
-  Fragment,
-  useContext,
-  useEffect,
-  useState,
-  useRef,
-} from 'react';
+import React, { Fragment, useEffect, useState, useRef } from 'react';
 import useInfiniteVehicles from '../../../../hooks/useInfiniteVehicles';
 import { CarType } from './mainContent_types';
-import { GoogleContext } from '../../../../context/GoogleOptContext';
-import {
-  CARD_LOADERS,
-  getSrpTheme,
-  handleShowingFirstBanner,
-} from '../utils/utils';
-
-import { useIntersectionObserver, useReadLocalStorage } from 'usehooks-ts';
+import { CARD_LOADERS, handleShowingFirstBanner } from '../utils/utils';
+import { useIntersectionObserver } from 'usehooks-ts';
 import useQuery from '../../../../hooks/useQuery';
-import SrpDisclaimer from '../../../srp-disclaimer/content/SrpDisclaimer';
 import Banner from '../../../banner/content/AdBanner';
 import useBanners from '../../../../hooks/useBanners';
+import { CardDesign2 } from '../../card';
 
 const MainContent = ({ vehiclesData }: any) => {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -54,22 +42,13 @@ const MainContent = ({ vehiclesData }: any) => {
 
   if (isSwr && error) return <h2>{error}</h2>;
 
-  // if (isSwr && isLoadingMore) return <>Loading ...</>;
-
-  // const { cachedSrpTheme, srpTheme }: any = useContext(GoogleContext);
-
-  // const srpCardsTheme = cachedSrpTheme || srpTheme;
-
   const vehiclesToShow = vehicles ?? [vehiclesData];
-
-  console.log(vehiclesToShow, 'vehiclesToShow');
 
   return (
     <>
       {vehiclesToShow?.map((cars: CarType[], page: number) => {
         return cars.map((car: CarType, index: number) => {
           const getNumberOfColsByScreen: any = handleMediaQuery();
-          const srpThemeTranslator = getSrpTheme['theme2'];
           return (
             <Fragment key={car.id}>
               {index % getNumberOfColsByScreen === 0 ? (
@@ -79,7 +58,7 @@ const MainContent = ({ vehiclesData }: any) => {
                   position={index}
                 />
               ) : undefined}
-              {srpThemeTranslator(car)}
+              <CardDesign2 car={car} key={`${car.id}`} />
             </Fragment>
           );
         });

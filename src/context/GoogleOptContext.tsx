@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { useReadLocalStorage, useSessionStorage } from 'usehooks-ts';
+import { useReadLocalStorage } from 'usehooks-ts';
 import CarClient from '../client/client';
 
 export const GoogleContext = createContext({});

@@ -5,7 +5,6 @@ import Spinner from '../../spinner/Spinner';
 import { CustomVideoElement } from '../styles/cardVideo.styles';
 import useIsMobile from '../../../../hooks/useIsMobile';
 import { Card2Image } from '../../card/card-design2/styles/cardDesign2.styles';
-import { Card3Image } from '../../card/card-design3/styles/cardDesign3.styles';
 import { useSWRConfig } from 'swr';
 import useVehicle from '../../../../hooks/useVehicle';
 
@@ -49,30 +48,6 @@ const CardVideo = ({
   };
 
   const videoOverlayTranslate: any = {
-    theme1: (
-      <>
-        <Card3Image
-          onErrorImage={errorImage}
-          src={poster}
-          placeholder={posterPlaceholder}
-          alt="video"
-        />
-        <span
-          style={{
-            position: 'absolute',
-            left: '50%',
-            top: '50%',
-            transform: 'translate(-50%, -50%)',
-          }}
-        >
-          <BsPlayCircle
-            style={{ filter: 'drop-shadow(2px 4px 6px black)' }}
-            size={50}
-            color="#fff"
-          />
-        </span>
-      </>
-    ),
     theme2: (
       <>
         <Card2Image
@@ -115,11 +90,7 @@ const CardVideo = ({
       }}
       onClick={handlePlayVideo}
     >
-      <div
-        style={{ position: 'relative' }}
-        //@ts-ignore
-        onClick={!isMobile ? handleNavigateToVehicle : null}
-      >
+      <div style={{ position: 'relative' }}>
         <CustomVideoElement
           videoSrc={videoSrc}
           controls

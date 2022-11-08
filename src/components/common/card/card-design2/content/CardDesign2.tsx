@@ -5,11 +5,9 @@ import { GoLocation } from 'react-icons/go';
 import Link from 'next/link';
 import { useTheme } from 'styled-components';
 import { useCopyToClipboard, useLocalStorage } from 'usehooks-ts';
-import useVehicle from '../../../../../hooks/useVehicle';
 import { kFormatter } from '../../../badge/content/Badge';
 import CardVideo from '../../../card-video/content/CardVideo';
 import Tooltip from '../../../tooltip/content/Tooltip';
-import CardTopLabel from '../../card-design1/card-top-label/content/CardTopLabel';
 import { currencyFormat } from '../../utils/utils';
 import {
   Card2Container,
@@ -31,11 +29,11 @@ import {
 } from '../styles/cardDesign2.styles';
 import Card2Badge from './card2-badge/content/Card2Badge';
 import { CardDesign2Props } from './cardDesign2_types';
-import { useSWRConfig } from 'swr';
 import useQuery from '../../../../../hooks/useQuery';
 import { CopyableText } from '../../../../VDP/vehicle-info/styles/vehicleInfo.styles';
 import { FaRegCopy } from 'react-icons/fa';
 import { handleShowingTextWithTradeMark } from '../../../../../global/utils/utils';
+import Image from 'next/image';
 
 const POSITION_FOR_BADGE = 15;
 
@@ -68,6 +66,7 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
     buttons,
     dealer_slug,
     drive_train,
+    permalink,
   } = car;
   const theme = useTheme();
   const params = useQuery();
@@ -120,13 +119,13 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
       <Card2Header>
         {!isVideoPlaying && (
           <>
-            {tag_title && (
+            {/* {tag_title && (
               <CardTopLabel
                 shape="rounded"
                 disclaimer={tag_disclaimer}
                 text={tag_title}
               />
-            )}
+            )} */}
             {tag_addit_title && (
               <Card2Badge
                 disclaimer={tag_addit_disclaimer}
@@ -270,7 +269,7 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
                       target="_blank"
                       rel="noreferrer"
                     >
-                      <img width={90} height={30} src={src} alt={name} />
+                      <Image width={90} height={30} src={src} alt={name} />
                     </a>
                   );
                 })
@@ -283,14 +282,6 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
       </CardBody2>
       <div className="srp-btns-container">
         {buttons && <span dangerouslySetInnerHTML={{ __html: buttons }}></span>}
-        <a
-          href={`https://express.spokanemercedes.com/express/${vin}`}
-          className="roadster-btn"
-        >
-          <button className="cbtn is_desk is_mobile">
-            SEE PAYMENT OPTIONS
-          </button>
-        </a>
       </div>
     </Card2Container>
   );
