@@ -1,8 +1,6 @@
-import CarClient from '../../../client/client';
 import { CarsContext } from '../../../context/CarsContext';
-import queryString from 'query-string';
 import { Checkbox } from '../../common';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 const CarTypeFilterStatic = () => {
   const { setCarTypes, carTypes, addFilters }: any =

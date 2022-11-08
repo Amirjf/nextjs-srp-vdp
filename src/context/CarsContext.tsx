@@ -106,24 +106,6 @@ export const CarsProvider: React.FC<any> = ({ children }: any) => {
     }
   };
 
-  const isAnyFilterApplied = () => {
-    const params = new URLSearchParams(window.location.search);
-    const minPrice = Number(params.get('minPrice'));
-    const maxPrice = Number(params.get('maxPrice'));
-    const minMileage = Number(params.get('maxMileage'));
-    const maxMileage = Number(params.get('minMileage'));
-
-    return (
-      Object.values(filters).join('').length !== 0 ||
-      activeSort?.length ||
-      searchQuery?.length ||
-      minPrice ||
-      maxPrice ||
-      minMileage ||
-      maxMileage
-    );
-  };
-
   //Handle applying filters by url
   // useEffect(() => {
   //   const filterParams = queryString.parse(window.location.search);
@@ -270,7 +252,7 @@ export const CarsProvider: React.FC<any> = ({ children }: any) => {
     setMileages,
     minimumPrice,
     minimumMileage,
-    isAnyFilterApplied,
+
     isUsersFirstTime,
     setIsUsersFirstTime,
     setIsClickedOnFilters,
