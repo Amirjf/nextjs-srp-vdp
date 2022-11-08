@@ -9,7 +9,6 @@ import '../src/global/global/global.css';
 import '../src/global/global/card-styles.css';
 import '../src/global/global/slider.css';
 import '../src/global/global/vdp.css';
-import 'keen-slider/keen-slider.min.css';
 
 function MyApp({ Component, pageProps }: any) {
   const FadingBackground = styled(BaseModalBackground)`
