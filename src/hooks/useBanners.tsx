@@ -3,7 +3,6 @@ import { CarsContext } from '../context/CarsContext';
 import { useMediaQuery } from 'usehooks-ts';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
-import CarClient from '../client/client';
 
 const useBanners = () => {
   const { data, error } = useSWR(

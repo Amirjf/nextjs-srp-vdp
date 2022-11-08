@@ -2,15 +2,12 @@ import axios from 'axios';
 import { MainContent, Sidebar } from '../src/components/common';
 import { MainContentContainer } from '../src/components/common/main-content/styles/mainContent.styles';
 import { MainContainer } from '../src/global/global/Global.styles';
-import useQuery from '../src/hooks/useQuery';
 
 export default function Home({ initVehicles }: any) {
   // const { data, error } = useSWR(
   //   'https://mbspokane.datgate.com/api/json/vehicles/fl.json?url=inventory/used-certified-new',
   //   fetcher
   // );
-
-  const params = useQuery();
 
   return (
     <>

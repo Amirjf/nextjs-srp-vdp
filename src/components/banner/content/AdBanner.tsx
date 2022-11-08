@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react';
 import { BiHelpCircle } from 'react-icons/bi';
 import useBanners from '../../../hooks/useBanners';
-import useIsMobile from '../../../hooks/useIsMobile';
+
 import { Button, Typography } from '../../common';
 import DisclaimerTooltip from '../../common/card/shared-components/tag-discaimer/DisclaimerTooltip';
 import { BannerAd } from '../../common/main-content/styles/mainContent.styles';
@@ -15,7 +15,7 @@ import VerticalAdBanner from './VerticalAdBanner';
 
 const Banner = ({ position, getCols }: any) => {
   const { bannersToShow } = useBanners();
-  const isMobile = useIsMobile();
+
   const [isActive, setIsActive] = useState(false);
   const [imgDimensions, setImgDimensions] = useState(0);
 
@@ -77,7 +77,7 @@ const Banner = ({ position, getCols }: any) => {
                 >
                   <img
                     style={{ width: '100%', height: 'auto' }}
-                    src={isMobile && image_mob.length ? image_mob : image}
+                    src={image_mob.length ? image_mob : image}
                     loading="lazy"
                     decoding="async"
                     onLoad={getImagedimensions}

@@ -3,10 +3,9 @@ import { BsPlayCircle } from 'react-icons/bs';
 import { CardVideoProps } from './cardVideo_types';
 import Spinner from '../../spinner/Spinner';
 import { CustomVideoElement } from '../styles/cardVideo.styles';
-import useIsMobile from '../../../../hooks/useIsMobile';
+
 import { Card2Image } from '../../card/card-design2/styles/cardDesign2.styles';
 import { useSWRConfig } from 'swr';
-import useVehicle from '../../../../hooks/useVehicle';
 
 const CardVideo = ({
   poster,
@@ -20,7 +19,6 @@ const CardVideo = ({
 }: CardVideoProps) => {
   const { cache } = useSWRConfig();
   const [vehicleId, setVehicleId] = useState<number | any>(null);
-  const isMobile = useIsMobile();
 
   const { id, year, make, model } = carData;
 
@@ -33,18 +31,6 @@ const CardVideo = ({
   const handlePauseVideo = () => {
     setIsVideoPlaying(false);
     setVideoPlaying(false);
-  };
-
-  const data = useVehicle(vehicleId);
-
-  const handleNavigateToVehicle = () => {
-    const existsInCache = cache.get(`${id}`);
-
-    if (existsInCache) {
-      window.location.assign(`#/vdp/${year}/${make}/${model}/${id}`);
-    } else {
-      setVehicleId(id);
-    }
   };
 
   const videoOverlayTranslate: any = {
@@ -94,7 +80,6 @@ const CardVideo = ({
         <CustomVideoElement
           videoSrc={videoSrc}
           controls
-          disableDefaultEventHandling={isMobile}
           focused={isVideoPlaying}
           loadingOverlay={<Spinner />}
           preload="none"
