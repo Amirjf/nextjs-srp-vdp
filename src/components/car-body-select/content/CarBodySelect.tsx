@@ -1,5 +1,5 @@
 import React from 'react';
-import { CarsContext } from '../../../context/CarsContext';
+import useFilters from '../../../hooks/useFilters';
 import {
   CarIcon,
   Label,
@@ -15,10 +15,11 @@ const CarBodySelect: React.FC<CarBodySelectType> = ({
   onChange,
   ...props
 }: CarBodySelectType) => {
-  const { loadingFilters }: any = React.useContext(CarsContext);
+  const { isLagging } = useFilters();
+
   name = name?.toLowerCase();
   return (
-    <CarBodyContainer loading={loadingFilters}>
+    <CarBodyContainer loading={isLagging}>
       <CarCheckbox
         onChange={onChange}
         id={name}

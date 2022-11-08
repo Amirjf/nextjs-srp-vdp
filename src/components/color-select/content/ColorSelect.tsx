@@ -1,6 +1,6 @@
 import React from 'react';
 import { MdDone } from 'react-icons/md';
-import { CarsContext } from '../../../context/CarsContext';
+import useFilters from '../../../hooks/useFilters';
 import {
   ColorLabel,
   ColorCheckbox,
@@ -19,11 +19,11 @@ const ColorSelect: React.FC<ColorSelectTypes> = ({
   count,
   ...props
 }: ColorSelectTypes) => {
-  const { loadingFilters }: any = React.useContext(CarsContext);
+  const { isLagging } = useFilters();
 
   name = name?.toLowerCase();
   return (
-    <ColorContainer loading={loadingFilters}>
+    <ColorContainer loading={isLagging}>
       <ColorCheckbox
         onChange={onChange}
         id={name}

@@ -64,3 +64,17 @@ export const BannerInfoContainer = styled.div({
     paddingBottom: '0',
   },
 });
+export const VerticalBannerWrapper = styled.div({
+  position: 'relative',
+  overflow: 'hidden auto',
+  '::-webkit-scrollbar-track': {
+    display: 'none',
+  },
+  '::-webkit-scrollbar': {
+    display: 'none',
+  },
+
+  '::-webkit-scrollbar-thumb': {
+    backgroundColor: '#000000',
+  },
+});

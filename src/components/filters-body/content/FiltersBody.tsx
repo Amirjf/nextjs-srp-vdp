@@ -7,9 +7,10 @@ import CarMileageFilter from '../../car-mileage-filter/content/CarMileageFilter'
 import { useReadLocalStorage } from 'usehooks-ts';
 
 import IsSpecialFilter from '../../car-is-special-filter/IsSpecialFilter';
+import useFilters from '../../../hooks/useFilters';
 
 const FiltersBody = () => {
-  // const getFilters = filterItems ?? currentFilters;
+  const { filterItems } = useFilters();
 
   return (
     <>
@@ -23,7 +24,7 @@ const FiltersBody = () => {
         <Collapsible title="Specials">
           <IsSpecialFilter />
         </Collapsible>
-        {/* {getFilters?.map(
+        {filterItems?.map(
           (
             filterItem: { [s: string]: unknown } | ArrayLike<unknown>,
             i: number
@@ -45,7 +46,7 @@ const FiltersBody = () => {
               );
             }
           }
-        )} */}
+        )}
 
         <Collapsible title="Mileage">
           <CarMileageFilter />

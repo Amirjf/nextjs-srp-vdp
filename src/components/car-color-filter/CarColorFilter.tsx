@@ -1,27 +1,11 @@
 import React from 'react';
-import { CarsContext } from '../../context/CarsContext';
+import useApplyFilter from '../../hooks/useApplyFilter';
 import { ColorSelect } from '../color-select';
 import { SeeMore } from '../common/see-more';
 import { COLORS } from './utils/constants';
 const CarColorFilter = ({ items }: any) => {
-  const { addFilters, clearItemFromFilters }: any =
-    React.useContext(CarsContext);
-
   const [seeMore, setSeeMore] = React.useState(false);
-
-  const handleChange = (event: any) => {
-    if (event.target.checked) {
-      addFilters({ key: 'ext_color', value: event.target.value });
-    } else {
-      clearItemFromFilters({ key: 'ext_color', value: event.target.value });
-    }
-  };
-
-  const handleChecked = (name: string) => {
-    const params = new URLSearchParams(window.location.search);
-    const getExtColors = params.getAll('ext_color');
-    return getExtColors.includes(name);
-  };
+  const { onFilterChange, checkHandler } = useApplyFilter('ext_color');
 
   return (
     <div>
@@ -34,10 +18,10 @@ const CarColorFilter = ({ items }: any) => {
             <ColorSelect
               key={`${item}${i}`}
               color={COLORS[colorName]}
-              onChange={handleChange}
+              onChange={onFilterChange}
               name={colorName}
               value={colorName}
-              checked={handleChecked(colorName)}
+              checked={checkHandler(colorName.toLowerCase())}
               label={`${colorName}`}
               count={colorCount}
             />

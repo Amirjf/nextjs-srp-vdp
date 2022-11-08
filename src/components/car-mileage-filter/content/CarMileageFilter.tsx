@@ -12,6 +12,7 @@ const CarMileageFilter = () => {
     setMaxMileage,
     highestMileage,
     minimumMileage,
+    setIsClickedOnFilters,
   }: any = React.useContext(CarsContext);
 
   const handleChangeMinMileage = (event: any) => {
@@ -19,6 +20,7 @@ const CarMileageFilter = () => {
     if (!value) {
       setMinMileage(minimumMileage);
     }
+    setIsClickedOnFilters(true);
     setMinMileage(value);
   };
   const handleChangeMaxMileage = (event: any) => {
@@ -26,6 +28,7 @@ const CarMileageFilter = () => {
     if (!value) {
       setMaxMileage(highestMileage);
     }
+    setIsClickedOnFilters(true);
     setMaxMileage(value);
   };
 

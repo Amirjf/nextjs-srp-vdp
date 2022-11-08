@@ -1,30 +1,24 @@
 import React from 'react';
 import { CarsContext } from '../../context/CarsContext';
+import useApplyFilter from '../../hooks/useApplyFilter';
 import { Checkbox } from '../common';
 
 const IsSpecialFilter = () => {
-  const { addFilters, filters, clearItemFromFilters }: any =
-    React.useContext(CarsContext);
+  const { filters }: any = React.useContext(CarsContext);
+  const { onFilterChange } = useApplyFilter('special');
 
-  const handleChange = (event: any) => {
-    if (event.target.checked) {
-      addFilters({ key: 'special', value: event.target.value });
-    } else {
-      clearItemFromFilters({ key: 'special', value: event.target.value });
-    }
-  };
   const handleChecked = () => {
     return filters['special']?.length ? true : false;
   };
 
   return (
-    <>
+    <div style={{ paddingBottom: 10 }}>
       {[{ special: '1' }].map((item: any, i: any) => {
         const name = item.special;
         const label = 'Special Vehicles';
         return (
           <Checkbox
-            onChange={handleChange}
+            onChange={onFilterChange}
             key={i}
             name={name}
             value={name}
@@ -34,7 +28,7 @@ const IsSpecialFilter = () => {
           />
         );
       })}
-    </>
+    </div>
   );
 };
 

@@ -69,7 +69,7 @@ const useInfiniteVehicles = () => {
         : `${handleSearch(searchQuery)}/pagenum=${pageIndex + 1}`;
 
     if (!loadingFilters) {
-      return `https://mbmarin.datgate.com/api/json/vehicles/fl.json?url=inventory/${getQueries}`;
+      return `https://salemnissan.datgate.com/api/json/vehicles/fl.json?url=inventory/${getQueries}`;
     }
   };
 
@@ -78,7 +78,7 @@ const useInfiniteVehicles = () => {
   // }
 
   const { data, error, size, setSize }: any = useSWRInfinite(getUrl, fetcher);
-
+  console.log(filters, 'filters');
   const isLoadingInitialData = !data && !error;
 
   const isLoadingMore =

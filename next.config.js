@@ -20,6 +20,7 @@ const nextConfig = {
       'vehicle-photos-published.vauto.com',
       'mbmarin.datgate.com',
       's3.amazonaws.com',
+      'salemnissan.datgate.com',
     ],
   },
 };

@@ -22,19 +22,19 @@ export const CarBodyContainer = styled.div<CarBodySelectType>(
 );
 
 export const CarIcon = styled.span({
-  width: 85,
+  paddingLeft: 4,
+  width: 100,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'start',
   '> svg': {
     color: '#fff',
     fill: '#fff',
-    width: 60,
+    transform: 'scale(0.7)',
   },
 });
 
 export const Label = styled.label<CarBodySelectType>(({ theme }) => ({
-  paddingLeft: 9,
   height: 65,
   color: '#444',
   cursor: 'pointer',
@@ -43,8 +43,8 @@ export const Label = styled.label<CarBodySelectType>(({ theme }) => ({
   alignItems: 'center',
   border: '2px solid #fff',
   borderRadius: 5,
+  fontSize: '90%',
   transition: theme.general.transition,
-  fontSize: '88%',
   'svg,path': {
     fill: 'black',
   },

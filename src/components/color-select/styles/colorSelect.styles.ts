@@ -1,10 +1,7 @@
 import styled from 'styled-components';
 import { mediaQueries } from '../../../global/utils/mediaQueries';
 
-import {
-  CheckedColorIconContainerProps,
-  ColorSelectTypes,
-} from '../content/colorSelect_types';
+import { ColorSelectTypes } from '../content/colorSelect_types';
 
 export const ColorContainer = styled.div<ColorSelectTypes>(
   ({ theme, loading }) => ({
@@ -48,14 +45,6 @@ export const ColorLabel = styled.label<ColorSelectTypes>(
       height: 30,
       width: 30,
     },
-    [mediaQueries('lg')]: {
-      height: 30,
-      width: 30,
-    },
-    [mediaQueries('xl')]: {
-      height: 30,
-      width: 30,
-    },
   })
 );
 
@@ -74,16 +63,7 @@ export const CountContainer = styled.span<ColorSelectTypes>(({ theme }) => ({
   alignItems: 'center',
   fontSize: 14,
   display: 'none',
-  [mediaQueries('sm')]: {
-    display: 'none',
-  },
   [mediaQueries('md')]: {
-    display: 'flex',
-  },
-  [mediaQueries('lg')]: {
-    display: 'flex',
-  },
-  [mediaQueries('lg')]: {
     display: 'flex',
   },
 }));
@@ -105,18 +85,6 @@ export const CheckedColorIconContainer = styled.span({
     width: 20,
     height: 20,
   },
-  [mediaQueries('lg')]: {
-    top: 5,
-    left: 9,
-    width: 20,
-    height: 20,
-  },
-  [mediaQueries('lg')]: {
-    top: 5,
-    left: 9,
-    width: 20,
-    height: 20,
-  },
 });
 export const ColorNameContainer = styled.span(({ theme }) => ({
   display: 'none',
@@ -124,18 +92,6 @@ export const ColorNameContainer = styled.span(({ theme }) => ({
     color: theme.palette.grey['200'],
     display: 'block',
     paddingLeft: 50,
-    fontSize: 15,
-  },
-  [mediaQueries('lg')]: {
-    display: 'block',
-    paddingLeft: 50,
-    color: theme.palette.grey['200'],
-    fontSize: 15,
-  },
-  [mediaQueries('xl')]: {
-    display: 'block',
-    paddingLeft: 50,
-    color: theme.palette.grey['200'],
     fontSize: 15,
   },
 }));

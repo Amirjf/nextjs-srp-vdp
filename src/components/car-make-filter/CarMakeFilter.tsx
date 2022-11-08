@@ -1,23 +1,23 @@
 import React from 'react';
 import useApplyFilter from '../../hooks/useApplyFilter';
-import { Checkbox } from '../common';
+import { Checkbox } from '../common/checkbox';
 import { SeeMore } from '../common/see-more';
 
-const CarTrimFilter = ({ items }: any) => {
+const CarMakeFilter = ({ items }: any) => {
   const [seeMore, setSeeMore] = React.useState(false);
-  const { onFilterChange, checkHandler } = useApplyFilter('trim');
+  const { onFilterChange, checkHandler } = useApplyFilter('make');
 
   return (
     <>
       {items
         .filter((_: string, i: number) => (seeMore ? i < items.length : i < 7))
-        .map((item: any, i: number) => {
+        .map((item: any, i: any) => {
           const name = Object.keys(item).join().toLowerCase();
           const count = Object.values(item).join();
           return (
             <Checkbox
-              key={i}
               onChange={onFilterChange}
+              key={i}
               name={name}
               value={name}
               checked={checkHandler(name)}
@@ -34,4 +34,4 @@ const CarTrimFilter = ({ items }: any) => {
   );
 };
 
-export default CarTrimFilter;
+export default CarMakeFilter;

@@ -34,6 +34,20 @@ export const FeatureItemsContainer = styled.div({
     height: 495,
     paddingInline: 50,
   },
+
+  [mediaQueries('lg')]: {
+    height: 495,
+    paddingInline: 50,
+  },
+
+  [mediaQueries('xl')]: {
+    height: 495,
+    paddingInline: 50,
+  },
+  [mediaQueries('xxl')]: {
+    height: 495,
+    paddingInline: 50,
+  },
 });
 export const KeyFeatureItemContainer = styled.div({
   width: '100%',
@@ -42,7 +56,18 @@ export const KeyFeatureItemContainer = styled.div({
     width: '100%',
   },
 
+  [mediaQueries('md')]: {
+    width: '100%',
+  },
+
   [mediaQueries('lg')]: {
+    width: '50%',
+  },
+
+  [mediaQueries('xl')]: {
+    width: '50%',
+  },
+  [mediaQueries('xxl')]: {
     width: '50%',
   },
 });

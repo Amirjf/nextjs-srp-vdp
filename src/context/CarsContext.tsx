@@ -11,11 +11,14 @@ export const CarsContext = createContext({});
 export const CarsProvider: React.FC<any> = ({ children }: any) => {
   const router = useRouter();
   const [filters, setFilters] = useState<any>({});
-
+  const [isClickedOnFilters, setIsClickedOnFilters] = useState(false);
   const [minimumPrice, setMinimumPrice] = useState(0);
   const [highestPrice, setHighestPrice] = useState(0);
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(0);
+  const [minPriceValue, setMinPriceValue] = useState<string | number>(0);
+
+  const [maxPriceValue, setMaxPriceValue] = useState<string | number>(0);
   const [prices, setPrices] = useState<any>({
     from: 0,
     to: 0,
@@ -32,13 +35,13 @@ export const CarsProvider: React.FC<any> = ({ children }: any) => {
 
   const [activeSort, setActiveSort] = useState<string | null>('');
 
-  const [loadingFilters, setLoadingFilters] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string | null>('');
+  const [searchValue, setSearchValue] = useState<string | null>('');
 
   const [carTypes, setCarTypes] = useState<any>([
-    { cond: 'new', isChecked: false },
-    { cond: 'used', isChecked: false },
-    { cond: 'certified', isChecked: false },
+    { cond: 'new', label: 'New', isChecked: false },
+    { cond: 'used', label: 'Pre-Owned', isChecked: false },
+    { cond: 'certified', label: 'Certified', isChecked: false },
   ]);
 
   const getCachedRanges: any = useReadLocalStorage('baseRanges');
@@ -193,35 +196,35 @@ export const CarsProvider: React.FC<any> = ({ children }: any) => {
     }
   }, []);
 
-  useEffect(() => {
-    if (window.scrollY > 1200) {
-      window.scrollTo({ top: 140, behavior: 'smooth' });
-    }
-    const normalizeCarTypes = carTypes
-      .filter((carType: any) => {
-        if (carType.isChecked) {
-          return carType.cond;
-        }
-      })
-      .map((carType: any) => carType.cond);
+  // useEffect(() => {
+  //   if (window.scrollY > 1200) {
+  //     window.scrollTo({ top: 140, behavior: 'smooth' });
+  //   }
+  //   const normalizeCarTypes = carTypes
+  //     .filter((carType: any) => {
+  //       if (carType.isChecked) {
+  //         return carType.cond;
+  //       }
+  //     })
+  //     .map((carType: any) => carType.cond);
 
-    const getFilters = {
-      ...filters,
-      ...(normalizeCarTypes && { cond: normalizeCarTypes }),
-      ...(minPrice !== 0 && { minPrice: minPrice }),
-      ...(maxPrice !== 0 && { maxPrice: maxPrice }),
-      ...(maxMileage && { maxMileage: maxMileage }),
-      ...(minMileage && { minMileage: minMileage }),
-      ...(searchQuery?.length && { search: searchQuery }),
-      ...(activeSort && { orderby: activeSort }),
-    };
+  //   const getFilters = {
+  //     ...filters,
+  //     ...(normalizeCarTypes && { cond: normalizeCarTypes }),
+  //     ...(minPrice !== 0 && { minPrice: minPrice }),
+  //     ...(maxPrice !== 0 && { maxPrice: maxPrice }),
+  //     ...(maxMileage && { maxMileage: maxMileage }),
+  //     ...(minMileage && { minMileage: minMileage }),
+  //     ...(searchQuery?.length && { search: searchQuery }),
+  //     ...(activeSort && { orderby: activeSort }),
+  //   };
 
-    const shallowEncoded = queryString.stringify(getFilters);
+  //   const shallowEncoded = queryString.stringify(getFilters);
 
-    router.push(shallowEncoded, undefined, { shallow: true });
+  //   // router.push(shallowEncoded, undefined, { shallow: true });
 
-    // window.history.pushState({}, 'filters', '?' + shallowEncoded);
-  }, [filters, carTypes, searchQuery, prices, mileages]);
+  //   // window.history.pushState({}, 'filters', '?' + shallowEncoded);
+  // }, [filters]);
 
   const getRanges = async () => {
     const { data } = await CarClient.get('/uq.json?type=ranges');
@@ -256,8 +259,6 @@ export const CarsProvider: React.FC<any> = ({ children }: any) => {
     highestPrice,
     setSearchQuery,
     searchQuery,
-    setLoadingFilters,
-    loadingFilters,
     setCarTypes,
     carTypes,
     highestMileage,
@@ -273,6 +274,7 @@ export const CarsProvider: React.FC<any> = ({ children }: any) => {
     isAnyFilterApplied,
     isUsersFirstTime,
     setIsUsersFirstTime,
+    setIsClickedOnFilters,
   };
 
   return <CarsContext.Provider value={value}>{children}</CarsContext.Provider>;

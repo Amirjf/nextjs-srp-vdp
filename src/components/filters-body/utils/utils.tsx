@@ -1,5 +1,5 @@
 import CarYearFilter from '../../car-year-filter/content/CarYearFilter';
-import CarMakeFilter from '../../common/car-make-filter/CarMakeFilter';
+import CarMakeFilter from '../../car-make-filter/CarMakeFilter';
 import CarBodyFilter from '../../car-body-filter/CarBodyFilter';
 import CarTrimFilter from '../../car-trim-filter/CarTrimFilter';
 import CarColorFilter from '../../car-color-filter/CarColorFilter';

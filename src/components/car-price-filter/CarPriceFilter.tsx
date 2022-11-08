@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDebounce } from 'usehooks-ts';
 import { CarsContext } from '../../context/CarsContext';
-
 import { Input } from '../common';
 import { PriceInputContainer } from './styles/carPriceFilter.styles';
 
@@ -13,41 +13,50 @@ const CarPriceFilter = () => {
     setMaxPrice,
     highestPrice,
     minimumPrice,
-    addFilters,
+    setIsClickedOnFilters,
+    minPriceValue,
+    setMinPriceValue,
+    maxPriceValue,
+    setMaxPriceValue,
   }: any = React.useContext(CarsContext);
+
+  const debouncedMinPrice = useDebounce<string | number>(minPriceValue, 250);
+  const debouncedMaxPrice = useDebounce<string | number>(maxPriceValue, 250);
 
   const handleChangeMinPrice = (value: string) => {
     if (value == minimumPrice || value == '0') {
       return;
     }
-    setMinPrice(value);
+    setIsClickedOnFilters(true);
+    setMinPriceValue(value);
   };
 
   const handleChangeMaxPrice = (value: string) => {
     if (value == highestPrice || value == '0') {
       return;
     }
-    setMaxPrice(value);
+
+    setIsClickedOnFilters(true);
+
+    setMaxPriceValue(value);
   };
 
   React.useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setPrices({ from: minPrice, to: maxPrice });
-    }, 400);
-    return () => clearTimeout(timeoutId);
-  }, [minPrice, maxPrice]);
+    setPrices({ from: debouncedMinPrice, to: debouncedMaxPrice });
+    setMinPrice(debouncedMinPrice);
+    setMaxPrice(debouncedMaxPrice);
+  }, [debouncedMinPrice, debouncedMaxPrice]);
 
   return (
     <PriceInputContainer>
       <Input
         currencyInput
         prefix="$"
-        color="ADACAC"
         name="minPrice"
         scale="xs"
         label="Min price"
         placeholder="Min"
-        value={minPrice === 0 ? minimumPrice : minPrice}
+        value={minPriceValue === 0 ? minimumPrice : minPriceValue}
         onValueChange={handleChangeMinPrice}
         maxLength={highestPrice.length}
       />
@@ -60,7 +69,7 @@ const CarPriceFilter = () => {
         scale="xs"
         label="Max price"
         placeholder="Max"
-        value={maxPrice === 0 ? highestPrice : maxPrice}
+        value={maxPriceValue === 0 ? highestPrice : maxPriceValue}
         onValueChange={handleChangeMaxPrice}
       />
 

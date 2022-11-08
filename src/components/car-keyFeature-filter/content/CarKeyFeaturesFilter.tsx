@@ -1,6 +1,6 @@
 import React from 'react';
 import { MdClose, MdOutlineFeaturedPlayList } from 'react-icons/md';
-import { CarsContext } from '../../../context/CarsContext';
+import useApplyFilter from '../../../hooks/useApplyFilter';
 import { Button, Typography } from '../../common';
 
 import KeyFeatureItemSelect from '../../key-feature-item/content/KeyFeatureItemSelect';
@@ -14,23 +14,13 @@ import { FEATURES_ICONS } from '../utils/constants';
 import { formatString } from '../utils/utils';
 
 const CarKeyFeaturesFilter = ({ items }: any) => {
-  const [showKeys, setShowKeys] = React.useState(false);
+  const [showModal, setShowModal] = React.useState(false);
   const [opacity, setOpacity] = React.useState(0);
-
-  const { addFilters, clearItemFromFilters }: any =
-    React.useContext(CarsContext);
-
-  const handleAddFilter = (event: any) => {
-    if (event.target.checked) {
-      addFilters({ key: 'key_features', value: event.target.value });
-    } else {
-      clearItemFromFilters({ key: 'key_features', value: event.target.value });
-    }
-  };
+  const { onFilterChange, checkHandler } = useApplyFilter('key_features');
 
   function toggleModal() {
     setOpacity(0);
-    setShowKeys(!showKeys);
+    setShowModal(!showModal);
   }
 
   function afterOpen() {
@@ -39,12 +29,6 @@ const CarKeyFeaturesFilter = ({ items }: any) => {
     }, 100);
   }
 
-  const handleChecked = (name: string) => {
-    const params = new URLSearchParams(window.location.search);
-    const getFeatures = params.getAll('key_features');
-    return getFeatures.includes(name);
-  };
-
   return (
     <div>
       <KeyFeatureButton onClick={toggleModal}>
@@ -52,7 +36,7 @@ const CarKeyFeaturesFilter = ({ items }: any) => {
         <span>CHOOSE FEATURE</span>
       </KeyFeatureButton>
       <KeyFeaturesModal
-        isOpen={showKeys}
+        isOpen={showModal}
         afterOpen={afterOpen}
         onBackgroundClick={toggleModal}
         onEscapeKeydown={toggleModal}
@@ -81,19 +65,19 @@ const CarKeyFeaturesFilter = ({ items }: any) => {
             }}
           >
             {items.map((item: any, i: number) => {
-              const name = Object.keys(item).join();
+              const name = Object.keys(item).join().toLowerCase();
               const count = Object.values(item).join();
               return (
                 <KeyFeatureItemContainer key={`${i}`}>
                   <KeyFeatureItemSelect
-                    onChange={handleAddFilter}
+                    onChange={onFilterChange}
                     name={name}
                     value={name}
-                    checked={handleChecked(name)}
+                    checked={checkHandler(name)}
                     id={name}
                     label={`${name}`}
                     count={count}
-                    icon={FEATURES_ICONS[formatString(name).toLowerCase()]}
+                    icon={FEATURES_ICONS[formatString(name)]}
                   />
                 </KeyFeatureItemContainer>
               );

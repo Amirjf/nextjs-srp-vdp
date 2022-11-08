@@ -7,7 +7,7 @@ import CarClient from '../client/client';
 
 const useBanners = () => {
   const { data, error } = useSWR(
-    'https://mbmarin.datgate.com/api/json/vehicles/opt.json?type=srpbanners'
+    'https://salemnissan.datgate.com/api/json/vehicles/opt.json?type=srpbanners'
   );
 
   const mediumMedia = useMediaQuery('(min-width:768px) and (max-width:1700px)');

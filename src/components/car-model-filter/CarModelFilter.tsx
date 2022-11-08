@@ -1,42 +1,26 @@
 import React from 'react';
-import { CarsContext } from '../../context/CarsContext';
+import useApplyFilter from '../../hooks/useApplyFilter';
 import { Checkbox } from '../common';
 import { SeeMore } from '../common/see-more';
 
 const CarModelFilter = ({ items }: any) => {
-  const { addFilters, clearItemFromFilters }: any =
-    React.useContext(CarsContext);
-
   const [seeMore, setSeeMore] = React.useState(false);
-
-  const handleChange = (event: any) => {
-    if (event.target.checked) {
-      addFilters({ key: 'model', value: event.target.value });
-    } else {
-      clearItemFromFilters({ key: 'model', value: event.target.value });
-    }
-  };
-
-  const handleChecked = (name: string) => {
-    const params = new URLSearchParams(window.location.search);
-    const getModels = params.getAll('model');
-    return getModels.includes(name);
-  };
+  const { onFilterChange, checkHandler } = useApplyFilter('model');
 
   return (
     <>
       {items
         .filter((_: string, i: number) => (seeMore ? i < items.length : i < 7))
         .map((item: any, i: any) => {
-          const name = Object.keys(item).join();
+          const name = Object.keys(item).join().toLowerCase();
           const count = Object.values(item).join();
           return (
             <Checkbox
-              onChange={handleChange}
+              onChange={(e: any) => onFilterChange(e, 'nissan')}
               key={i}
               name={name}
               value={name}
-              checked={handleChecked(name)}
+              checked={checkHandler(name)}
               id={name}
               label={`${name}`}
               count={count}

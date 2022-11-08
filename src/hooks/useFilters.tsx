@@ -2,7 +2,7 @@ import useSWR from 'swr';
 
 const useFilters = () => {
   const { data: filterItems, error }: any = useSWR(
-    'https://spokanemercedes.com/api/json/vehicles/uq.json?type=counts&url=inventory/new-certified-used'
+    'https://salemnissan.datgate.com/api/json/vehicles/uq.json?type=counts&url=inventory/new-certified-used'
   );
 
   const totalVehicles = filterItems?.find((obj: any) => {
