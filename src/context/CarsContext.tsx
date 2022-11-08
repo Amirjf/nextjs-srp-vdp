@@ -125,75 +125,75 @@ export const CarsProvider: React.FC<any> = ({ children }: any) => {
   };
 
   //Handle applying filters by url
-  useEffect(() => {
-    const filterParams = queryString.parse(window.location.search);
-    const getUrl: any = window.localStorage
-      .getItem('currentURL')
-      ?.split('/')
-      .slice(1)
-      .join('&')
-      .replaceAll('year', 'vehicleYear');
+  // useEffect(() => {
+  //   const filterParams = queryString.parse(window.location.search);
+  //   const getUrl: any = window.localStorage
+  //     .getItem('currentURL')
+  //     ?.split('/')
+  //     .slice(1)
+  //     .join('&')
+  //     .replaceAll('year', 'vehicleYear');
 
-    const parsUrl = queryString.parse(getUrl);
+  //   const parsUrl = queryString.parse(getUrl);
 
-    const getParsedUrl = getUrl?.length > 1 ? parsUrl : filterParams;
+  //   const getParsedUrl = getUrl?.length > 1 ? parsUrl : filterParams;
 
-    if (Object.values(filterParams).length || getUrl?.length) {
-      for (const [key, value] of Object.entries(getParsedUrl)) {
-        if (key === 'cond' && Array.isArray(value)) {
-          carTypes.map((d: any) => {
-            //@ts-ignore
-            value.map((item: any) => {
-              if (d.cond === item) {
-                d.isChecked = true;
-              }
-            });
-          });
-        } else {
-          carTypes.map((d: any) => {
-            if (d.cond === value) {
-              d.isChecked = true;
-            }
-          });
-        }
-        if (Array.isArray(value)) {
-          value.map((param: any) => {
-            if (key !== 'cond') {
-              addFilters({ key: key, value: param });
-            }
-          });
-        } else {
-          if (key === 'vehicleYear') {
-            addFilters({ key: 'year', value: value });
-          }
-          if (key !== 'cond') {
-            addFilters({ key: key, value: value });
-          }
-        }
-      }
+  //   if (Object.values(filterParams).length || getUrl?.length) {
+  //     for (const [key, value] of Object.entries(getParsedUrl)) {
+  //       if (key === 'cond' && Array.isArray(value)) {
+  //         carTypes.map((d: any) => {
+  //           //@ts-ignore
+  //           value.map((item: any) => {
+  //             if (d.cond === item) {
+  //               d.isChecked = true;
+  //             }
+  //           });
+  //         });
+  //       } else {
+  //         carTypes.map((d: any) => {
+  //           if (d.cond === value) {
+  //             d.isChecked = true;
+  //           }
+  //         });
+  //       }
+  //       if (Array.isArray(value)) {
+  //         value.map((param: any) => {
+  //           if (key !== 'cond') {
+  //             addFilters({ key: key, value: param });
+  //           }
+  //         });
+  //       } else {
+  //         if (key === 'vehicleYear') {
+  //           addFilters({ key: 'year', value: value });
+  //         }
+  //         if (key !== 'cond') {
+  //           addFilters({ key: key, value: value });
+  //         }
+  //       }
+  //     }
 
-      const params = new URLSearchParams(window.location.search);
+  //     const params = new URLSearchParams(window.location.search);
 
-      if (params.get('maxPrice') || params.get('minPrice')) {
-        setMinPrice(
-          params.get('minPrice') ? Number(params.get('minPrice')) : 0
-        );
-        setMaxPrice(Number(params.get('maxPrice')));
-      }
+  //     if (params.get('maxPrice') || params.get('minPrice')) {
+  //       setMinPrice(
+  //         params.get('minPrice') ? Number(params.get('minPrice')) : 0
+  //       );
+  //       setMaxPrice(Number(params.get('maxPrice')));
+  //     }
 
-      if (params.get('maxMileage') || params.get('minMileage')) {
-        setMinMileage(
-          params.get('minMileage') ? Number(params.get('minMileage')) : 0
-        );
-        setMaxMileage(Number(params.get('maxMileage')));
-      }
+  //     if (params.get('maxMileage') || params.get('minMileage')) {
+  //       setMinMileage(
+  //         params.get('minMileage') ? Number(params.get('minMileage')) : 0
+  //       );
+  //       setMaxMileage(Number(params.get('maxMileage')));
+  //     }
 
-      if (params.get('search')) {
-        const searchValue = params.get('search');
-        setSearchQuery(searchValue);
-      }
-    }
-  }, []);
+  //     if (params.get('search')) {
+  //       const searchValue = params.get('search');
+  //       setSearchQuery(searchValue);
+  //     }
+  //   }
+  // }, []);
 
   // useEffect(() => {
   //   if (window.scrollY > 1200) {
