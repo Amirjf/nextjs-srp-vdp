@@ -1,11 +1,9 @@
 import React, { Fragment, useEffect, useState, useRef } from 'react';
 import useInfiniteVehicles from '../../../../hooks/useInfiniteVehicles';
 import { CarType } from './mainContent_types';
-import { CARD_LOADERS, handleShowingFirstBanner } from '../utils/utils';
+import { CARD_LOADERS } from '../utils/utils';
 import { useIntersectionObserver } from 'usehooks-ts';
 import useQuery from '../../../../hooks/useQuery';
-import Banner from '../../../banner/content/AdBanner';
-import useBanners from '../../../../hooks/useBanners';
 import { CardDesign2 } from '../../card';
 
 const MainContent = ({ vehiclesData }: any) => {
@@ -25,7 +23,6 @@ const MainContent = ({ vehiclesData }: any) => {
     setSize,
     size,
   } = useInfiniteVehicles();
-  const { handleMediaQuery, bannersToShow } = useBanners();
 
   useEffect(() => {
     if (vehicles) {
