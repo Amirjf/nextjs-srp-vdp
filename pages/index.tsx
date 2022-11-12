@@ -1,6 +1,9 @@
 import axios from 'axios';
+
 import { MainContent, Sidebar } from '../src/components/common';
 import { MainContentContainer } from '../src/components/common/main-content/styles/mainContent.styles';
+import SRPFilterHandler from '../src/components/srp-filter-handler/SRPFilterHandler';
+import TopSearch from '../src/components/top-search/content/TopSearch';
 import { MainContainer } from '../src/global/global/Global.styles';
 
 export default function Home({ initVehicles }: any) {
@@ -12,8 +15,8 @@ export default function Home({ initVehicles }: any) {
   return (
     <>
       <div className="srp-wrapper">
-        {/* <SRPFilterHandler /> */}
-        {/* <TopSearch /> */}
+        <SRPFilterHandler />
+        <TopSearch />
         <MainContainer>
           <Sidebar />
           {/* {isEmpty && <NotFoundVehicle />} */}

@@ -48,16 +48,16 @@ const MainContent = ({ vehiclesData }: any) => {
     <>
       {vehiclesToShow?.map((cars: CarType[], page: number) => {
         return cars.map((car: CarType, index: number) => {
-          const getNumberOfColsByScreen: any = handleMediaQuery();
+          // const getNumberOfColsByScreen: any = handleMediaQuery();
           return (
             <Fragment key={car.id}>
-              {index % getNumberOfColsByScreen === 0 ? (
+              {/* {index % getNumberOfColsByScreen === 0 ? (
                 <Banner
                   media={handleMediaQuery}
                   getCols={getNumberOfColsByScreen}
                   position={index}
                 />
-              ) : undefined}
+              ) : undefined} */}
               <CardDesign2 car={car} key={`${car.id}`} />
             </Fragment>
           );
@@ -73,9 +73,9 @@ const MainContent = ({ vehiclesData }: any) => {
           zIndex: 999999999,
         }}
       ></div>
-      {vehicles && vehicles[0]?.length < 6
+      {/* {vehicles && vehicles[0]?.length < 6
         ? handleShowingFirstBanner(bannersToShow)
-        : ''}
+        : ''} */}
       {isLoadingMore && !isReachingEnd ? (
         <>
           {Array.from(Array(8).keys()).map((s, index) => (

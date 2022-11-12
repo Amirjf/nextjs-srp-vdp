@@ -25,7 +25,7 @@ const VerticalAdBanner = ({ bannerContent }: VerticalBannerProps) => {
 
   return (
     <VerticalBannerWrapper>
-      <VerticalBannerContainer>
+      {/* <VerticalBannerContainer>
         <VerticalHeaderContainer>
           <img
             style={{
@@ -78,7 +78,7 @@ const VerticalAdBanner = ({ bannerContent }: VerticalBannerProps) => {
             content={disclaimer}
           />
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
     </VerticalBannerWrapper>
   );
 };

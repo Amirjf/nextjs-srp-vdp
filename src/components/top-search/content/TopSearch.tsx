@@ -12,7 +12,6 @@ import SavedCars from '../../saved-cars/content/SavedCars';
 
 const TopSearch = () => {
   // const { setSearchQuery, searchQuery }: any = useContext(CarsContext);
-  const savedCars: any = useReadLocalStorage('savedCars');
 
   // const handleSearch = async (event: React.ChangeEvent<HTMLInputElement>) => {
   //   setSearchQuery(event.target.value);
@@ -27,7 +26,7 @@ const TopSearch = () => {
   return (
     <>
       <TopSearchContainer>
-        {/* <FoundedVehicles /> */}
+        <FoundedVehicles />
         <TopSearchField>
           <Input
             scale="sm"
