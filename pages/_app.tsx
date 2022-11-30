@@ -9,6 +9,17 @@ import '../src/global/global/global.css';
 import '../src/global/global/card-styles.css';
 import '../src/global/global/slider.css';
 import '../src/global/global/vdp.css';
+import '../src/global/global/elementor/frontend.min.css';
+import '../src/global/global/elementor/frontend.css';
+import '../src/global/global/elementor/frontend-legacy.min.css';
+import '../src/global/global/elementor/frontend-legacy.css';
+import '../src/global/global/elementor/common.min.css';
+import '../src/global/global/elementor/common.css';
+import '../src/global/global/elementor/app.css';
+import '../src/global/global/elementor/app.min.css';
+import '../src/global/global/elementor/widget-accordion.min.css';
+import '../src/global/global/elementor/widget-tabs.min.css';
+import '../src/global/global/elementor/hover.min.css';
 
 function MyApp({ Component, pageProps }: any) {
   const FadingBackground = styled(BaseModalBackground)`

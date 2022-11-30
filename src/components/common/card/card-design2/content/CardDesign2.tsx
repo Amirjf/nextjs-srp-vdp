@@ -145,7 +145,7 @@ const CardDesign2 = ({ car }: CardDesign2Props) => {
             ) : undefined}
           </>
         )}
-        <Link prefetch={false} href={`vehicle/${vin}`}>
+        <Link prefetch={false} href={`/${make}`}>
           <a>
             <Card2ImageWrapper>
               {video ? (

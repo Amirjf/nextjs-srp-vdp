@@ -82,3 +82,101 @@ export const handleSortQuery = (activeSort: string) => {
     return '';
   }
 };
+
+export const handlePriceAndMileage = (
+  key: 'price' | 'mileage',
+  minVal: string | number,
+  maxVal: string | number,
+  highestVal: string | number
+) => {
+  if (maxVal || minVal) {
+    return `${key}=${minVal ? minVal : '0'}-${maxVal ? maxVal : highestVal}/`;
+  } else {
+    return '';
+  }
+};
+
+export const filterOriginalFilterObj = (
+  filters: any,
+  makes: string[],
+  models: string[]
+) => {
+  const keysToChange = ['make', 'body'];
+
+  keysToChange.forEach((key) => {
+    if (filters[key]) {
+      filters[key] = filters[key].slice(1);
+    }
+  });
+
+  if (makes && makes.length === 1) {
+    filters.trim = filters['trim']?.slice(1);
+  }
+
+  if ((models && makes && makes.length === 1) || (models && !makes?.length)) {
+    filters.model = filters['model']?.slice(1);
+  }
+};
+
+export function getKeyByValue(object: any, value: any) {
+  return Object.keys(object).find((key) => object[key].includes(value));
+}
+
+export function getMakeModel(object: any, value: any) {
+  const getMake = getKeyByValue(object, value);
+  return getMake;
+}
+
+export const initCarTypes = () => {
+  return [
+    {
+      cond: 'new',
+      label: 'New',
+      isChecked: false,
+      timeStamp: Math.floor(Date.now() / 1000),
+    },
+    {
+      cond: 'used',
+      label: 'Pre-Owned',
+      isChecked: false,
+      timeStamp: Math.floor(Date.now() / 1000),
+    },
+    {
+      cond: 'certified',
+      label: 'Certified',
+      isChecked: false,
+      timeStamp: Math.floor(Date.now() / 1000),
+    },
+  ];
+};
+
+export const handleConditionsUrl = (appliedConditions: string[]) => {
+  if (!appliedConditions.length) return '';
+  if (appliedConditions.length === 3) {
+    return 'used-vehicles/';
+  }
+
+  if (
+    appliedConditions.length === 2 &&
+    appliedConditions.includes('new') &&
+    appliedConditions.includes('certified')
+  ) {
+    return 'used-vehicles/certified/';
+  }
+  if (
+    appliedConditions.length === 2 &&
+    appliedConditions.includes('certified') &&
+    appliedConditions.includes('used')
+  ) {
+    return 'used-vehicles/';
+  }
+  if (
+    appliedConditions.length === 1 &&
+    appliedConditions.includes('certified')
+  ) {
+    return 'used-vehicles/certified/';
+  }
+  if (appliedConditions.length === 1) {
+    return `${appliedConditions[0]}-vehicles/`;
+  }
+};

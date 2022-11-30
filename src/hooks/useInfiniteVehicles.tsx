@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useEffect, useContext, useRef, useCallback } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import CarClient from '../client/client';
@@ -51,6 +52,7 @@ const useInfiniteVehicles = () => {
     highestMileage,
     loadingFilters,
   }: any = useContext(CarsContext);
+  const router = useRouter();
 
   const fetcher = (url: string) => CarClient.get(url).then((res) => res.data);
 
@@ -78,7 +80,7 @@ const useInfiniteVehicles = () => {
   // }
 
   const { data, error, size, setSize }: any = useSWRInfinite(getUrl, fetcher);
-  console.log(filters, 'filters');
+
   const isLoadingInitialData = !data && !error;
 
   const isLoadingMore =

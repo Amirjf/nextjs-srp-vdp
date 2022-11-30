@@ -1,10 +1,17 @@
-import React, { Fragment, useEffect, useState, useRef } from 'react';
+import React, {
+  Fragment,
+  useEffect,
+  useState,
+  useRef,
+  useContext,
+} from 'react';
 import useInfiniteVehicles from '../../../../hooks/useInfiniteVehicles';
 import { CarType } from './mainContent_types';
 import { CARD_LOADERS } from '../utils/utils';
 import { useIntersectionObserver } from 'usehooks-ts';
 import useQuery from '../../../../hooks/useQuery';
 import { CardDesign2 } from '../../card';
+import { CarsContext } from '../../../../context/CarsContext';
 
 const MainContent = ({ vehiclesData }: any) => {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -12,7 +19,6 @@ const MainContent = ({ vehiclesData }: any) => {
   const entry = useIntersectionObserver(ref, {});
   const isVisible = !!entry?.isIntersecting;
 
-  const [data, setData] = React.useState([vehiclesData]);
   const [isSwr, setIsSWR] = useState(false);
 
   const {
@@ -23,10 +29,10 @@ const MainContent = ({ vehiclesData }: any) => {
     setSize,
     size,
   } = useInfiniteVehicles();
+  const { filters }: any = useContext(CarsContext);
 
   useEffect(() => {
     if (vehicles) {
-      setData(vehicles);
       setIsSWR(true);
     }
   }, [vehicles]);
@@ -39,7 +45,9 @@ const MainContent = ({ vehiclesData }: any) => {
 
   if (isSwr && error) return <h2>{error}</h2>;
 
-  const vehiclesToShow = vehicles ?? [vehiclesData];
+  const vehiclesToShow = vehicles ?? [
+    Object.values(filters).length > 0 ? [] : vehiclesData,
+  ];
 
   return (
     <>

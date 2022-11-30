@@ -1,5 +1,10 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { addFilter, removeFilter } from './utils/filterUtils';
+import {
+  addFilter,
+  filterOriginalFilterObj,
+  handleConditionsUrl,
+  removeFilter,
+} from './utils/filterUtils';
 import queryString from 'query-string';
 
 import CarClient from '../client/client';
@@ -10,6 +15,7 @@ export const CarsContext = createContext({});
 
 export const CarsProvider: React.FC<any> = ({ children }: any) => {
   const [filters, setFilters] = useState<any>({});
+  const router = useRouter();
   const [isClickedOnFilters, setIsClickedOnFilters] = useState(false);
   const [minimumPrice, setMinimumPrice] = useState(0);
   const [highestPrice, setHighestPrice] = useState(0);
@@ -106,106 +112,104 @@ export const CarsProvider: React.FC<any> = ({ children }: any) => {
     }
   };
 
-  //Handle applying filters by url
-  // useEffect(() => {
-  //   const filterParams = queryString.parse(window.location.search);
-  //   const getUrl: any = window.localStorage
-  //     .getItem('currentURL')
-  //     ?.split('/')
-  //     .slice(1)
-  //     .join('&')
-  //     .replaceAll('year', 'vehicleYear');
+  // Handle applying filters by url
+  useEffect(() => {
+    const filterParams = queryString.parse(window.location.search);
+    const getUrl: any = window.localStorage
+      .getItem('currentURL')
+      ?.split('/')
+      .slice(1)
+      .join('&')
+      .replaceAll('year', 'vehicleYear');
 
-  //   const parsUrl = queryString.parse(getUrl);
+    const parsUrl = queryString.parse(getUrl);
 
-  //   const getParsedUrl = getUrl?.length > 1 ? parsUrl : filterParams;
+    const getParsedUrl = getUrl?.length > 1 ? parsUrl : filterParams;
 
-  //   if (Object.values(filterParams).length || getUrl?.length) {
-  //     for (const [key, value] of Object.entries(getParsedUrl)) {
-  //       if (key === 'cond' && Array.isArray(value)) {
-  //         carTypes.map((d: any) => {
-  //           //@ts-ignore
-  //           value.map((item: any) => {
-  //             if (d.cond === item) {
-  //               d.isChecked = true;
-  //             }
-  //           });
-  //         });
-  //       } else {
-  //         carTypes.map((d: any) => {
-  //           if (d.cond === value) {
-  //             d.isChecked = true;
-  //           }
-  //         });
-  //       }
-  //       if (Array.isArray(value)) {
-  //         value.map((param: any) => {
-  //           if (key !== 'cond') {
-  //             addFilters({ key: key, value: param });
-  //           }
-  //         });
-  //       } else {
-  //         if (key === 'vehicleYear') {
-  //           addFilters({ key: 'year', value: value });
-  //         }
-  //         if (key !== 'cond') {
-  //           addFilters({ key: key, value: value });
-  //         }
-  //       }
-  //     }
+    if (Object.values(filterParams).length || getUrl?.length) {
+      for (const [key, value] of Object.entries(router.query)) {
+        if (key === 'cond' && Array.isArray(value)) {
+          carTypes.map((d: any) => {
+            //@ts-ignore
+            value.map((item: any) => {
+              if (d.cond === item) {
+                d.isChecked = true;
+              }
+            });
+          });
+        } else {
+          carTypes.map((d: any) => {
+            if (d.cond === value) {
+              d.isChecked = true;
+            }
+          });
+        }
+        if (Array.isArray(value)) {
+          value.map((param: any) => {
+            if (key !== 'cond') {
+              addFilters({ key: key, value: param });
+            }
+          });
+        } else {
+          if (key === 'vehicleYear') {
+            addFilters({ key: 'year', value: value });
+          }
+          if (key !== 'cond') {
+            addFilters({ key: key, value: value });
+          }
+        }
+      }
 
-  //     const params = new URLSearchParams(window.location.search);
+      const params = new URLSearchParams(window.location.search);
 
-  //     if (params.get('maxPrice') || params.get('minPrice')) {
-  //       setMinPrice(
-  //         params.get('minPrice') ? Number(params.get('minPrice')) : 0
-  //       );
-  //       setMaxPrice(Number(params.get('maxPrice')));
-  //     }
+      if (params.get('maxPrice') || params.get('minPrice')) {
+        setMinPrice(
+          params.get('minPrice') ? Number(params.get('minPrice')) : 0
+        );
+        setMaxPrice(Number(params.get('maxPrice')));
+      }
 
-  //     if (params.get('maxMileage') || params.get('minMileage')) {
-  //       setMinMileage(
-  //         params.get('minMileage') ? Number(params.get('minMileage')) : 0
-  //       );
-  //       setMaxMileage(Number(params.get('maxMileage')));
-  //     }
+      if (params.get('maxMileage') || params.get('minMileage')) {
+        setMinMileage(
+          params.get('minMileage') ? Number(params.get('minMileage')) : 0
+        );
+        setMaxMileage(Number(params.get('maxMileage')));
+      }
 
-  //     if (params.get('search')) {
-  //       const searchValue = params.get('search');
-  //       setSearchQuery(searchValue);
-  //     }
-  //   }
-  // }, []);
+      if (params.get('search')) {
+        const searchValue = params.get('search');
+        setSearchQuery(searchValue);
+      }
+    }
+  }, []);
 
-  // useEffect(() => {
-  //   if (window.scrollY > 1200) {
-  //     window.scrollTo({ top: 140, behavior: 'smooth' });
-  //   }
-  //   const normalizeCarTypes = carTypes
-  //     .filter((carType: any) => {
-  //       if (carType.isChecked) {
-  //         return carType.cond;
-  //       }
-  //     })
-  //     .map((carType: any) => carType.cond);
+  useEffect(() => {
+    const appliedConditions = carTypes
+      .filter((carType: any) => carType.isChecked && carType.cond)
 
-  //   const getFilters = {
-  //     ...filters,
-  //     ...(normalizeCarTypes && { cond: normalizeCarTypes }),
-  //     ...(minPrice !== 0 && { minPrice: minPrice }),
-  //     ...(maxPrice !== 0 && { maxPrice: maxPrice }),
-  //     ...(maxMileage && { maxMileage: maxMileage }),
-  //     ...(minMileage && { minMileage: minMileage }),
-  //     ...(searchQuery?.length && { search: searchQuery }),
-  //     ...(activeSort && { orderby: activeSort }),
-  //   };
+      .map((carType: any) => carType.cond);
 
-  //   const shallowEncoded = queryString.stringify(getFilters);
+    const getFilters = {
+      ...filters,
+      ...(appliedConditions.length > 0 && {
+        condition: appliedConditions,
+      }),
+      ...(minPrice !== 0 && { minPrice: minPrice }),
+      ...(maxPrice !== 0 && { maxPrice: maxPrice }),
+      ...(maxMileage && { maxMileage: maxMileage }),
+      ...(minMileage && { minMileage: minMileage }),
+      ...(searchQuery?.length && { search: searchQuery }),
+      ...(activeSort && { orderby: activeSort }),
+    };
 
-  //   // router.push(shallowEncoded, undefined, { shallow: true });
+    const endcodedFilters = `${queryString.stringify(getFilters)}`;
 
-  //   // window.history.pushState({}, 'filters', '?' + shallowEncoded);
-  // }, [filters]);
+    if (endcodedFilters) {
+      router.push(endcodedFilters ? `?${endcodedFilters}` : '', undefined, {
+        shallow: true,
+      });
+    }
+  }, [filters, carTypes, searchQuery, prices, mileages, activeSort]);
 
   const getRanges = async () => {
     const { data } = await CarClient.get('/uq.json?type=ranges');
