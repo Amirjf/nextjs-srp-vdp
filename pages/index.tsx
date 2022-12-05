@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Script from 'next/script';
 
 export default function Home({ pageContent: { data } }: any) {
-  console.log(data);
+  console.log(data.menu.menuItems.nodes);
   return (
     <>
       <Head>
@@ -16,7 +16,8 @@ export default function Home({ pageContent: { data } }: any) {
           media="all"
         />
       </Head>
-      <Script src="https://api.amir-jf.ir/wp-includes/js/jquery/jquery.min.js?ver=3.6.1" />
+      <Script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" />
+      <Script src="https://code.jquery.com/jquery-3.6.1.min.js" />
       <Script src="https://api.amir-jf.ir/wp-content/plugins/elementor/assets/js/frontend.min.js?ver=3.7.2" />
       <Script src="https://api.amir-jf.ir/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js?ver=3.7.2" />
       <Script src="https://api.amir-jf.ir/wp-content/plugins/elementor/assets/js/frontend-modules.min.js?ver=3.7.2" />
@@ -31,9 +32,11 @@ export default function Home({ pageContent: { data } }: any) {
         <Link href="/srp">
           <a>SRP</a>
         </Link>
-        <Link href="/nissan/altima">
-          <a>nissan</a>
-        </Link>
+        {data.menu.menuItems.nodes.map((m: any) => (
+          <Link href={m.uri}>
+            <a>{m.label}</a>
+          </Link>
+        ))}
       </div>
       <div dangerouslySetInnerHTML={{ __html: data.pageBy.content }}></div>
     </>
@@ -54,15 +57,24 @@ export const getServerSideProps = async ({ res }: any) => {
         id
         content
       }
+      menu(id: "primary", idType: SLUG) {
+        id
+        menuItems {
+          nodes {
+            url
+            label
+            uri
+          }
+        }
+      }
     }
     `,
   });
 
-  console.log(result);
-
   return {
     props: {
       pageContent: result.data,
+      headerContent: result.data,
     },
   };
 };
